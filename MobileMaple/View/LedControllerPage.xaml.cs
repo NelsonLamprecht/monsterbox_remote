@@ -1,4 +1,5 @@
 ﻿using MobileMaple.ViewModel;
+using System.Diagnostics;
 using Xamarin.Forms;
 
 namespace MobileMaple.View
@@ -16,6 +17,12 @@ namespace MobileMaple.View
             base.OnAppearing();
 
             await (BindingContext as LedControllerViewModel).GetServers();
+        }
+
+        private void beginIterationSlider_ValueChanged(object sender, ValueChangedEventArgs args)
+        {
+            double value = args.NewValue;
+            Debug.WriteLine(value);
         }
     }
 }

@@ -14,14 +14,7 @@
             <Button x:Name="btnLed" Text="RGB LED Controller" Clicked="BtnLedClicked" HeightRequest="60"
                 TextColor="White" BackgroundColor="{StaticResource ButtonActive}" />
 
-            <Button x:Name="btnServo" Text="Servo Controller" Clicked="BtnServoClicked" HeightRequest="60"
-                TextColor="White" BackgroundColor="{StaticResource ButtonActive}" />
-
-            <Button x:Name="btnAnalogTemperature" Text="Temperature Controller" Clicked="BtnTemperatureClicked" HeightRequest="60"
-                TextColor="White" BackgroundColor="{StaticResource ButtonActive}" />
             
-            <Label Text="By Wilderness Labs" TextColor="Black" 
-                HorizontalOptions="Center" VerticalOptions="EndAndExpand" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -24,7 +24,7 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                
+
                 <Label Grid.Row="0" Text="Maple servers:" FontSize="Medium" TextColor="Black" />
 
                 <Frame Grid.Row="1" BackgroundColor="#23ABE3" HasShadow="False" CornerRadius="5" Padding="10,0,0,0">
@@ -69,77 +69,62 @@
                     </Grid>
                 </Frame>
 
-                <Label Grid.Row="3" Text="Choose a command:" TextColor="Black" FontSize="Medium" Margin="0,5" />
+                <Frame Grid.Row="3" BackgroundColor="#EF7D3B" HasShadow="False" CornerRadius="5" Padding="10">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
 
-                <Button Grid.Row="4" Text="Turn On" Style="{StaticResource ButtonStyle}" BackgroundColor="Red"
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            
+                            <Slider x:Name="beginIterationSlider"  
+                                Minimum="0" 
+                                Maximum="10"                                                                     
+                                ValueChanged="beginIterationSlider_ValueChanged" />
+
+                            <Label Text="{Binding BeginIterations}"
+                                FontSize="Medium" TextColor="White" VerticalOptions="Center" />
+
+                            <Button Grid.Row="2" Text="Shake" Style="{StaticResource ButtonStyle}" BackgroundColor="Red"
                     Command="{Binding SendCommand}" CommandParameter="TurnOn">
-                    <Button.Triggers>
-                        <DataTrigger TargetType="Button" Binding="{Binding IsOn}" Value="true">
-                            <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
-                        </DataTrigger>
-                        <DataTrigger TargetType="Button" Binding="{Binding IsOn}" Value="false">
-                            <Setter Property="BackgroundColor" Value="{StaticResource ButtonInactive}" />
-                        </DataTrigger>
-                    </Button.Triggers>
-                </Button>
+                                <Button.Triggers>
+                                    <DataTrigger TargetType="Button" Binding="{Binding IsOn}" Value="true">
+                                        <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Button" Binding="{Binding IsOn}" Value="false">
+                                        <Setter Property="BackgroundColor" Value="{StaticResource ButtonInactive}" />
+                                    </DataTrigger>
+                                </Button.Triggers>
+                            </Button>
+                        </Grid>
+                        <Button Grid.Row="3" Text="Growl" Style="{StaticResource ButtonStyle}" BackgroundColor="Red"
+                    Command="{Binding SendCommand}" CommandParameter="TurnOn">
+                            <Button.Triggers>
+                                <DataTrigger TargetType="Button" Binding="{Binding IsOn}" Value="true">
+                                    <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
+                                </DataTrigger>
+                                <DataTrigger TargetType="Button" Binding="{Binding IsOn}" Value="false">
+                                    <Setter Property="BackgroundColor" Value="{StaticResource ButtonInactive}" />
+                                </DataTrigger>
+                            </Button.Triggers>
+                        </Button>
 
-                <Button Grid.Row="5" Text="Turn Off" Style="{StaticResource ButtonStyle}"
-                    Command="{Binding SendCommand}" CommandParameter="TurnOff" >
-                    <Button.Triggers>
-                        <DataTrigger TargetType="Button" Binding="{Binding IsOff}" Value="true">
-                            <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
-                        </DataTrigger>
-                        <DataTrigger TargetType="Button" Binding="{Binding IsOff}" Value="false">
-                            <Setter Property="BackgroundColor" Value="{StaticResource ButtonInactive}" />
-                        </DataTrigger>
-                    </Button.Triggers>
-                </Button>
+                    </Grid>
+                </Frame>
 
-                <Button Grid.Row="6" Text="Start Blink" Style="{StaticResource ButtonStyle}"
-                    Command="{Binding SendCommand}" CommandParameter="StartBlink">
-                    <Button.Triggers>
-                        <DataTrigger TargetType="Button" Binding="{Binding IsBlinking}" Value="true">
-                            <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
-                        </DataTrigger>
-                        <DataTrigger TargetType="Button" Binding="{Binding IsBlinking}" Value="false">
-                            <Setter Property="BackgroundColor" Value="{StaticResource ButtonInactive}" />
-                        </DataTrigger>
-                    </Button.Triggers>
-                </Button>
-
-                <Button Grid.Row="7" Text="Start Pulse" Style="{StaticResource ButtonStyle}"
-                    Command="{Binding SendCommand}" CommandParameter="StartPulse">
-                    <Button.Triggers>
-                        <DataTrigger TargetType="Button" Binding="{Binding IsPulsing}" Value="true">
-                            <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
-                        </DataTrigger>
-                        <DataTrigger TargetType="Button" Binding="{Binding IsPulsing}" Value="false">
-                            <Setter Property="BackgroundColor" Value="{StaticResource ButtonInactive}" />
-                        </DataTrigger>
-                    </Button.Triggers>
-                </Button>
-
-                <Button Grid.Row="8" Text="Start Running Colors" Style="{StaticResource ButtonStyle}"
-                    Command="{Binding SendCommand}" CommandParameter="StartRunningColors">
-                    <Button.Triggers>
-                        <DataTrigger TargetType="Button" Binding="{Binding IsRunningColors}" Value="true">
-                            <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
-                        </DataTrigger>
-                        <DataTrigger TargetType="Button" Binding="{Binding IsRunningColors}" Value="false">
-                            <Setter Property="BackgroundColor" Value="{StaticResource ButtonInactive}" />
-                        </DataTrigger>
-                    </Button.Triggers>
-                </Button>
-
-                <Label Grid.Row="10" Text="By Wilderness Labs" TextColor="Black" 
-                      HorizontalOptions="Center" VerticalOptions="EndAndExpand" />
-            </Grid>
-
-            <Grid IsVisible="{Binding IsBusy}" BackgroundColor="#88000000">
-                <StackLayout Spacing="10" HorizontalOptions="Center" VerticalOptions="Center">
-                    <Label Text="Please Wait..." TextColor="White" HorizontalOptions="Center" />
-                    <ActivityIndicator Color="White" IsRunning="True"  />
-                </StackLayout>
+                <Grid IsVisible="{Binding IsBusy}" BackgroundColor="#88000000">
+                    <StackLayout Spacing="10" HorizontalOptions="Center" VerticalOptions="Center">
+                        <Label Text="Please Wait..." TextColor="White" HorizontalOptions="Center" />
+                        <ActivityIndicator Color="White" IsRunning="True"  />
+                    </StackLayout>
+                </Grid>
             </Grid>
         </Grid>
     </ContentPage.Content>

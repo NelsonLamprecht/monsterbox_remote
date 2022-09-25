@@ -8,22 +8,12 @@ namespace MobileMaple.View
         public MainPage()
         {
             InitializeComponent();
-            NavigationPage.SetBackButtonTitle(this, "Back");
+            NavigationPage.SetBackButtonTitle(this, "Back");            
         }
 
         void BtnLedClicked(object sender, EventArgs e)
         {
             Navigation.PushAsync(new LedControllerPage());
-        }
-
-        void BtnServoClicked(object sender, EventArgs e)
-        {
-            Navigation.PushAsync(new ServoControllerPage());
-        }
-
-        void BtnTemperatureClicked(object sender, EventArgs e)
-        {
-            Navigation.PushAsync(new TemperatureControllerPage());
-        }
+        }       
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -39,6 +40,13 @@ namespace MobileMaple.ViewModel
         {
             get => _isRunningColors;
             set { _isRunningColors = value; OnPropertyChanged(nameof(IsRunningColors)); }
+        }
+
+        bool _beginIterations;
+        public bool BeginIterations
+        {
+            get => _beginIterations;
+            set { _beginIterations = value; OnPropertyChanged(nameof(BeginIterations)); }
         }
 
         public LedControllerViewModel() : base()
@@ -84,6 +92,12 @@ namespace MobileMaple.ViewModel
             {
                 IsBusy = false;
             }
+        }
+
+        void beginIterationSlider_ValueChanged(object sender, ValueChangedEventArgs args)
+        {
+            double value = args.NewValue;
+            Debug.WriteLine(value);
         }
     }
 }
