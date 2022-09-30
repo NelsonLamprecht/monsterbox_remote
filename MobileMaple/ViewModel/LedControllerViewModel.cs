@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -7,76 +8,94 @@ namespace MobileMaple.ViewModel
 {
     public class LedControllerViewModel : BaseViewModel
     {
-        bool _isOn;
-        public bool IsOn 
+
+        bool _isShake;
+        public bool IsShake
         {
-            get => _isOn;
-            set { _isOn = value; OnPropertyChanged(nameof(IsOn)); }
+            get => _isShake;
+            set { _isShake = value; OnPropertyChanged(nameof(IsShake)); }
         }
 
-        bool _isOff;
-        public bool IsOff
-        {
-            get => _isOff;
-            set { _isOff = value; OnPropertyChanged(nameof(IsOff)); }
-        }
-
-        bool _isPulsing;
-        public bool IsPulsing
-        {
-            get => _isPulsing;
-            set { _isPulsing = value; OnPropertyChanged(nameof(IsPulsing)); }
-        }
-
-        bool _isBlinking;
-        public bool IsBlinking
-        {
-            get => _isBlinking;
-            set { _isBlinking = value; OnPropertyChanged(nameof(IsBlinking)); }
-        }
-
-        bool _isRunningColors;
-        public bool IsRunningColors
-        {
-            get => _isRunningColors;
-            set { _isRunningColors = value; OnPropertyChanged(nameof(IsRunningColors)); }
-        }
-
-        bool _beginIterations;
-        public bool BeginIterations
+        int _beginIterations = 25;
+        public int BeginIterations
         {
             get => _beginIterations;
             set { _beginIterations = value; OnPropertyChanged(nameof(BeginIterations)); }
         }
 
+        int _endIterations = 50;
+        public int EndIterations
+        {
+            get => _endIterations;
+            set { _endIterations = value; OnPropertyChanged(nameof(EndIterations)); }
+        }
+
+        int _beginDelay = 50;
+        public int BeginDelay
+        {
+            get => _beginDelay;
+            set { _beginDelay = value; OnPropertyChanged(nameof(BeginDelay)); }
+        }
+
+        int _endDelay = 75;
+        public int EndDelay
+        {
+            get => _endDelay;
+            set { _endDelay = value; OnPropertyChanged(nameof(EndDelay)); }
+        }
+
         public LedControllerViewModel() : base()
         {
             SendCommand = new Command(async (obj) => await SendLedCommand(obj as string));
-
-            IsOn = true;
+            IsShake = true;
+            
         }
 
         async Task SendLedCommand(string command)
         {
-            if (IsBusy || SelectedServer == null)
+#if !DEBUG
+            if (IsBusy || SelectedServer == null)            
+            {
                 return;
+            }
+#endif
+
             IsBusy = true;
 
             try
             {
-                bool response = await client.PostAsync(SelectedServer.IpAddress, ServerPort, command, string.Empty);
+                bool response = false;
+                switch (command)
+                {
+                    case "Shake":
+                        {
+                            var query = new Dictionary<string, string>()
+                            {
+                                ["bi"] = BeginIterations.ToString(),
+                                ["ei"] = EndIterations.ToString(),
+                                ["bd"] = BeginDelay.ToString(),
+                                ["ed"] = EndDelay.ToString(),
+                            };
+                            var complexCommand = RequestUriUtil.GetUriWithQueryString(command, query).ToLower();
+                            response = await SendHttpData(complexCommand);
+                            break;
+                        }
+                    default:
+                        {
+                            response = await SendHttpData(command);
+                            break;
+                        }
+                }
+                
 
                 if (response)
                 {
-                    IsOn = IsOff = IsBlinking = IsPulsing = IsRunningColors = false;
+                    IsShake = false;
 
                     switch (command) 
                     {
-                        case "TurnOn": IsOn = true; break;
-                        case "TurnOff": IsOff = true; break;
-                        case "StartBlink": IsBlinking = true; break;
-                        case "StartPulse": IsPulsing = true; break;
-                        case "StartRunningColors": IsRunningColors = true; break;
+                        case "Shake": IsShake = true; break;
+                        default: throw new Exception($"Unknown command fallthrough: {command}.");
                     }
                 }
                 else
@@ -94,10 +113,19 @@ namespace MobileMaple.ViewModel
             }
         }
 
-        void beginIterationSlider_ValueChanged(object sender, ValueChangedEventArgs args)
+        private async Task<bool> SendHttpData(string command) 
         {
-            double value = args.NewValue;
-            Debug.WriteLine(value);
+            bool response;
+            if (Debugger.IsAttached) 
+            {
+                Debug.WriteLine($"{SelectedServer?.IpAddress}, {ServerPort}, {command}, {string.Empty}");
+                response = true;
+            }
+            else
+            {
+                response = await client.PostAsync(SelectedServer.IpAddress, ServerPort, command, string.Empty);
+            }
+            return response;
         }
     }
 }

@@ -1,28 +1,63 @@
-﻿using MobileMaple.ViewModel;
-using System.Diagnostics;
+﻿using System.Diagnostics;
+
 using Xamarin.Forms;
+
+using MobileMaple.ViewModel;
 
 namespace MobileMaple.View
 {
     public partial class LedControllerPage : ContentPage
     {
+        private LedControllerViewModel ViewModel { get; }
+
         public LedControllerPage()
         {
             InitializeComponent();
             BindingContext = new LedControllerViewModel();
-        }
+            ViewModel = BindingContext as LedControllerViewModel;
+        }        
 
         protected override async void OnAppearing()
         {
             base.OnAppearing();
+            await ViewModel.GetServers();
+        }
+    
 
-            await (BindingContext as LedControllerViewModel).GetServers();
+        private void BeginIterationsStepper_ValueChanged(object sender, ValueChangedEventArgs e)
+        {
+            Debug.WriteLine(e.NewValue);
+            if (int.TryParse(e.NewValue.ToString(), out var value))
+            {
+                ViewModel.BeginIterations = value;
+            }
         }
 
-        private void beginIterationSlider_ValueChanged(object sender, ValueChangedEventArgs args)
+        private void EndIterationsStepper_ValueChanged(object sender, ValueChangedEventArgs e)
         {
-            double value = args.NewValue;
-            Debug.WriteLine(value);
+            Debug.WriteLine(e.NewValue);
+            if (int.TryParse(e.NewValue.ToString(), out var value))
+            {                
+                ViewModel.EndIterations = value;
+            }
+        }
+
+        private void BeginDelayStepper_ValueChanged(object sender, ValueChangedEventArgs e)
+        {
+            Debug.WriteLine(e.NewValue);
+            if (int.TryParse(e.NewValue.ToString(), out var value))
+            {
+                ViewModel.BeginDelay = value;
+            }
+        }
+
+        private void EndDelayStepper_ValueChanged(object sender, ValueChangedEventArgs e)
+        {
+            Debug.WriteLine(e.NewValue);
+            if (int.TryParse(e.NewValue.ToString(), out var value))
+            {
+                ViewModel.EndDelay = value;
+            }
         }
     }
 }

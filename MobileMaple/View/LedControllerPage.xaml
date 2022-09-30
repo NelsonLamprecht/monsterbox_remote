@@ -2,12 +2,17 @@
 <ContentPage 
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+    xmlns:viewmodel="clr-namespace:MobileMaple.ViewModel"
+    x:DataType="viewmodel:LedControllerViewModel"
     ios:Page.UseSafeArea="true"
     x:Class="MobileMaple.View.LedControllerPage"
     BackgroundColor="White"
-    Title="Led Controller">
-
+    Title="MonsterBox Controller">
+    <ContentPage.BindingContext>
+        <viewmodel:LedControllerViewModel />
+    </ContentPage.BindingContext>
+    
     <ContentPage.Content>
         <Grid>
             <Grid RowSpacing="10" Padding="20">
@@ -71,54 +76,132 @@
 
                 <Frame Grid.Row="3" BackgroundColor="#EF7D3B" HasShadow="False" CornerRadius="5" Padding="10">
                     <Grid>
+                        <Grid.RowDefinitions>                            
+                        </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1*" />
-                            <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />                            
                         </Grid.ColumnDefinitions>
+                        
+                        <StackLayout                             
+                            Grid.Column="0"                            
+                            BackgroundColor="Gray"                           
+                            Spacing="10" HorizontalOptions="Start" VerticalOptions="Center">
+                                
+                            <Label                                 
+                                Text="Begin Iterations"                                     
+                                FontSize="Medium" TextColor="White" />
 
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-                            
-                            <Slider x:Name="beginIterationSlider"  
-                                Minimum="0" 
-                                Maximum="10"                                                                     
-                                ValueChanged="beginIterationSlider_ValueChanged" />
+                            <Label                                
+                                Text="{Binding BeginIterations}" 
+                                FontSize="Medium" TextColor="White" />
 
-                            <Label Text="{Binding BeginIterations}"
-                                FontSize="Medium" TextColor="White" VerticalOptions="Center" />
+                            <Stepper                                   
+                                Minimum="0"
+                                Maximum="100"
+                                Increment="5"
+                                ValueChanged="BeginIterationsStepper_ValueChanged" />                            
+                        </StackLayout>
+                        
+                        <StackLayout 
+                            Grid.Column="1"
+                            BackgroundColor="Gray"                                                               
+                            Spacing="10" HorizontalOptions="End" VerticalOptions="Center">
 
-                            <Button Grid.Row="2" Text="Shake" Style="{StaticResource ButtonStyle}" BackgroundColor="Red"
-                    Command="{Binding SendCommand}" CommandParameter="TurnOn">
-                                <Button.Triggers>
-                                    <DataTrigger TargetType="Button" Binding="{Binding IsOn}" Value="true">
-                                        <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
-                                    </DataTrigger>
-                                    <DataTrigger TargetType="Button" Binding="{Binding IsOn}" Value="false">
-                                        <Setter Property="BackgroundColor" Value="{StaticResource ButtonInactive}" />
-                                    </DataTrigger>
-                                </Button.Triggers>
-                            </Button>
-                        </Grid>
-                        <Button Grid.Row="3" Text="Growl" Style="{StaticResource ButtonStyle}" BackgroundColor="Red"
-                    Command="{Binding SendCommand}" CommandParameter="TurnOn">
+                            <Label                               
+                                Text="End Iterations"                                     
+                                FontSize="Medium" TextColor="White" />
+
+                            <Label                                
+                                Text="{Binding EndIterations}" 
+                                FontSize="Medium" TextColor="White" />
+
+                            <Stepper 
+                                Minimum="0"
+                                Maximum="100"
+                                Increment="5"
+                                ValueChanged="EndIterationsStepper_ValueChanged" />
+                                
+                        </StackLayout>
+                        
+                        <StackLayout 
+                            Grid.Column="2"
+                            BackgroundColor="Gray"                                                          
+                            Spacing="10" HorizontalOptions="End" VerticalOptions="Center">
+
+                            <Label                               
+                                Text="Begin Delay"                                     
+                                FontSize="Medium" TextColor="White" />
+
+                            <Label                                
+                                Text="{Binding BeginDelay}" 
+                                FontSize="Medium" TextColor="White" />
+
+                            <Stepper 
+                                Minimum="0"
+                                Maximum="100"
+                                Increment="5"
+                                ValueChanged="BeginDelayStepper_ValueChanged" />
+
+                        </StackLayout>
+
+                        <StackLayout 
+                            Grid.Column="3"    
+                            BackgroundColor="Gray"                           
+                            Spacing="10" HorizontalOptions="End" VerticalOptions="Center">
+
+                            <Label                               
+                                Text="End Delay"                                     
+                                FontSize="Medium" TextColor="White" />
+
+                            <Label                                
+                                Text="{Binding EndDelay}" 
+                                FontSize="Medium" TextColor="White" />
+
+                            <Stepper 
+                                Minimum="0"
+                                Maximum="100"
+                                Increment="5"
+                                ValueChanged="EndDelayStepper_ValueChanged" />
+
+                        </StackLayout>
+
+                        <Button
+                            Grid.Row="1"
+                            Grid.ColumnSpan="4"
+                            Text="Shake" Style="{StaticResource ButtonStyle}"                                 
+                            Command="{Binding SendCommand}" CommandParameter="Shake">
                             <Button.Triggers>
-                                <DataTrigger TargetType="Button" Binding="{Binding IsOn}" Value="true">
+                                <DataTrigger TargetType="Button" Binding="{Binding IsShake}" Value="true">
                                     <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
                                 </DataTrigger>
-                                <DataTrigger TargetType="Button" Binding="{Binding IsOn}" Value="false">
+                                <DataTrigger TargetType="Button" Binding="{Binding IsShake}" Value="false">
                                     <Setter Property="BackgroundColor" Value="{StaticResource ButtonInactive}" />
                                 </DataTrigger>
                             </Button.Triggers>
                         </Button>
 
                     </Grid>
+                    
+                    
                 </Frame>
 
+                <Frame Grid.Row="4" BackgroundColor="#EF7D3B" HasShadow="False" CornerRadius="5" Padding="10">
+                    <Button Text="Growl" Style="{StaticResource ButtonStyle}" 
+                                Command="{Binding SendCommand}" CommandParameter="TurnOn">
+                        <Button.Triggers>
+                            <DataTrigger TargetType="Button" Binding="{Binding IsShake}" Value="true">
+                                <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="Button" Binding="{Binding IsShake}" Value="false">
+                                <Setter Property="BackgroundColor" Value="{StaticResource ButtonInactive}" />
+                            </DataTrigger>
+                        </Button.Triggers>
+                    </Button>
+                </Frame>
+                
                 <Grid IsVisible="{Binding IsBusy}" BackgroundColor="#88000000">
                     <StackLayout Spacing="10" HorizontalOptions="Center" VerticalOptions="Center">
                         <Label Text="Please Wait..." TextColor="White" HorizontalOptions="Center" />
