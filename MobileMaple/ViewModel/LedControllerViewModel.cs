@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
+
 using Xamarin.Forms;
 
 namespace MobileMaple.ViewModel
 {
     public class LedControllerViewModel : BaseViewModel
     {
-
         bool _isShake;
         public bool IsShake
         {
@@ -46,12 +46,12 @@ namespace MobileMaple.ViewModel
 
         public LedControllerViewModel() : base()
         {
-            SendCommand = new Command(async (obj) => await SendLedCommand(obj as string));
+            SendCommand = new Command(async (obj) => await SendMeadowCommand(obj as string));
             IsShake = true;
             
         }
 
-        async Task SendLedCommand(string command)
+        async Task SendMeadowCommand(string command)
         {
 #if !DEBUG
             if (IsBusy || SelectedServer == null)            
