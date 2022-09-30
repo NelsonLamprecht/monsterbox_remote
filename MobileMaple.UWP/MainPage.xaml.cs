@@ -5,8 +5,8 @@
         public MainPage()
         {
             this.InitializeComponent();
-
-            LoadApplication(new App());
+            
+            LoadApplication(new Mobile.App());
         }
     }
 }

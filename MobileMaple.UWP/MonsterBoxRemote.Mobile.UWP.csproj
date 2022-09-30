@@ -178,7 +178,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MobileMaple\MonsterBoxRemote.Mobile.csproj">
-      <Project>{25439F9C-7581-4A91-964E-4CB310DE8F5B}</Project>
+      <Project>{25439f9c-7581-4a91-964e-4cb310de8f5b}</Project>
       <Name>MonsterBoxRemote.Mobile</Name>
     </ProjectReference>
   </ItemGroup>
