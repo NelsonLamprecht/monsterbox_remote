@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 
-namespace MobileMaple.ViewModel
+namespace MonsterBoxRemote.Mobile
 {
     internal static class RequestUriUtil
     {

@@ -1,13 +1,14 @@
-﻿using Meadow.Foundation.Web.Maple.Client;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using Xamarin.Forms;
 
-namespace MobileMaple.ViewModel
+using Xamarin.Forms;
+using Meadow.Foundation.Web.Maple.Client;
+
+namespace MonsterBoxRemote.Mobile.ViewModel
 {
     public class BaseViewModel : INotifyPropertyChanged
     {

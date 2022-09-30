@@ -1,4 +1,4 @@
-﻿namespace MobileMaple.UWP
+﻿namespace MonsterBoxRemote.Mobile.UWP
 {
     public sealed partial class MainPage
     {
@@ -6,7 +6,7 @@
         {
             this.InitializeComponent();
 
-            LoadApplication(new MobileMaple.App());
+            LoadApplication(new App());
         }
     }
 }

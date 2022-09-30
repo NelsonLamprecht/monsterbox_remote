@@ -1,7 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 
-namespace MobileMaple.View
+namespace MonsterBoxRemote.Mobile.View
 {
     public partial class MainPage : ContentPage
     {

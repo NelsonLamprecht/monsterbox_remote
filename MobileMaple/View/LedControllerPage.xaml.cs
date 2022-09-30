@@ -2,9 +2,9 @@
 
 using Xamarin.Forms;
 
-using MobileMaple.ViewModel;
+using MonsterBoxRemote.Mobile.ViewModel;
 
-namespace MobileMaple.View
+namespace MonsterBoxRemote.Mobile.View
 {
     public partial class LedControllerPage : ContentPage
     {

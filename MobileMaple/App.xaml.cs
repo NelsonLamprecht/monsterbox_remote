@@ -1,8 +1,10 @@
-﻿using MobileMaple.View;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+
 using Xamarin.Forms;
 
-namespace MobileMaple
+using MonsterBoxRemote.Mobile.View;
+
+namespace MonsterBoxRemote.Mobile
 {
     public partial class App : Application
     {

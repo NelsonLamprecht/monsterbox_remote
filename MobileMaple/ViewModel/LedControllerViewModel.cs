@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 
-namespace MobileMaple.ViewModel
+namespace MonsterBoxRemote.Mobile.ViewModel
 {
     public class LedControllerViewModel : BaseViewModel
     {
