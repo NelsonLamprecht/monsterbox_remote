@@ -53,12 +53,10 @@ namespace MonsterBoxRemote.Mobile.ViewModel
 
         async Task SendMeadowCommand(string command)
         {
-#if !DEBUG
             if (IsBusy || SelectedServer == null)            
             {
                 return;
             }
-#endif
 
             IsBusy = true;
 
@@ -77,12 +75,12 @@ namespace MonsterBoxRemote.Mobile.ViewModel
                                 ["ed"] = EndDelay.ToString(),
                             };
                             var complexCommand = RequestUriUtil.GetUriWithQueryString(command, query).ToLower();
-                            response = await SendHttpData(complexCommand);
+                            response = await PostHttpDataWithCommand(complexCommand);
                             break;
                         }
                     default:
                         {
-                            response = await SendHttpData(command);
+                            response = await PostHttpDataWithCommand(command);
                             break;
                         }
                 }
@@ -113,18 +111,15 @@ namespace MonsterBoxRemote.Mobile.ViewModel
             }
         }
 
-        private async Task<bool> SendHttpData(string command) 
+        private async Task<bool> PostHttpDataWithCommand(string command) 
         {
             bool response;
-            if (Debugger.IsAttached) 
-            {
-                Debug.WriteLine($"{SelectedServer?.IpAddress}, {ServerPort}, {command}, {string.Empty}");
-                response = true;
-            }
-            else
-            {
-                response = await client.PostAsync(SelectedServer.IpAddress, ServerPort, command, string.Empty);
-            }
+            
+            //Debug.WriteLine($"{SelectedServer?.IpAddress}, {ServerPort}, {command}, {string.Empty}");
+            //response = true;
+            
+            response = await client.PostAsync(SelectedServer.IpAddress, ServerPort, command, string.Empty);
+            
             return response;
         }
     }

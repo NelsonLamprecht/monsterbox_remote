@@ -12,8 +12,10 @@ namespace MonsterBoxRemote.Mobile.ViewModel
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public MapleClient client { get; private set; }
+        private const int MapleClientListenTimeout = 10000;
 
+        public MapleClient client { get; private set; }
+        
         int _serverPort;
         public int ServerPort
         {
@@ -68,7 +70,10 @@ namespace MonsterBoxRemote.Mobile.ViewModel
 
             ServerPort = 5417;
 
-            client = new MapleClient();
+            client = new MapleClient
+            {
+                ListenTimeout = MapleClientListenTimeout
+            };
             client.Servers.CollectionChanged += ServersCollectionChanged;
 
             SearchServersCommand = new Command(async () => await GetServers());
@@ -77,7 +82,9 @@ namespace MonsterBoxRemote.Mobile.ViewModel
         public async Task GetServers()
         {
             if (IsBusy)
+            {
                 return;
+            }
             IsBusy = true;
 
             try
@@ -106,7 +113,15 @@ namespace MonsterBoxRemote.Mobile.ViewModel
             }
         }
 
-        void ServersCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        #region INotifyPropertyChanged Implementation
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+        #endregion
+
+         private void ServersCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)
             {
@@ -119,13 +134,5 @@ namespace MonsterBoxRemote.Mobile.ViewModel
                     break;
             }
         }
-
-        #region INotifyPropertyChanged Implementation
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string name = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
-        #endregion
     }
 }
