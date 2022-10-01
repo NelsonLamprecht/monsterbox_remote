@@ -7,7 +7,7 @@ using Xamarin.Forms;
 
 namespace MonsterBoxRemote.Mobile.ViewModel
 {
-    public class LedControllerViewModel : BaseViewModel
+    public class MonsterBoxControllerViewModel : BaseViewModel
     {
         bool _isShake;
         public bool IsShake
@@ -44,7 +44,7 @@ namespace MonsterBoxRemote.Mobile.ViewModel
             set { _endDelay = value; OnPropertyChanged(nameof(EndDelay)); }
         }
 
-        public LedControllerViewModel() : base()
+        public MonsterBoxControllerViewModel() : base()
         {
             SendCommand = new Command(async (obj) => await SendMeadowCommand(obj as string));
             IsShake = true;

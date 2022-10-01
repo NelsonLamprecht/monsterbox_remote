@@ -6,15 +6,15 @@ using MonsterBoxRemote.Mobile.ViewModel;
 
 namespace MonsterBoxRemote.Mobile.View
 {
-    public partial class LedControllerPage : ContentPage
+    public partial class MonsterBoxControllerPage : ContentPage
     {
-        private LedControllerViewModel ViewModel { get; }
+        private MonsterBoxControllerViewModel ViewModel { get; }
 
-        public LedControllerPage()
+        public MonsterBoxControllerPage()
         {
             InitializeComponent();
-            BindingContext = new LedControllerViewModel();
-            ViewModel = BindingContext as LedControllerViewModel;
+            BindingContext = new MonsterBoxControllerViewModel();
+            ViewModel = BindingContext as MonsterBoxControllerViewModel;
         }        
 
         protected override async void OnAppearing()

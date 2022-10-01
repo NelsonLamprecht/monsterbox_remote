@@ -13,7 +13,7 @@ namespace MonsterBoxRemote.Mobile.View
 
         void BtnMonsterBoxClicked(object sender, EventArgs e)
         {
-            Navigation.PushAsync(new LedControllerPage());
+            Navigation.PushAsync(new MonsterBoxControllerPage());
         }       
     }
 }

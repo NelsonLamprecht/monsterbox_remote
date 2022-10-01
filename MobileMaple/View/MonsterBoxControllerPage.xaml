@@ -6,7 +6,7 @@
     xmlns:viewmodel="clr-namespace:MonsterBoxRemote.Mobile.ViewModel"
     x:DataType="viewmodel:LedControllerViewModel"
     ios:Page.UseSafeArea="true"
-    x:Class="MonsterBoxRemote.Mobile.View.LedControllerPage"
+    x:Class="MonsterBoxRemote.Mobile.View.MonsterBoxControllerPage"
     BackgroundColor="White"
     Title="MonsterBox Controller">
     <ContentPage.BindingContext>
