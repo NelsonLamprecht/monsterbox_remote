@@ -3,9 +3,9 @@ using Android.Content;
 using Android.Content.PM;
 using Android.OS;
 
-namespace MobileMaple.Droid
+namespace MonsterBoxRemote.Mobile.Droid
 {
-    [Activity(Label = "Maple", Icon = "@mipmap/icon_launcher", RoundIcon = "@mipmap/icon_round_launcher", Theme = "@style/Theme.Splash",
+    [Activity(Label = "MonsterBoxRemote", Icon = "@mipmap/icon_launcher", RoundIcon = "@mipmap/icon_round_launcher", Theme = "@style/Theme.Splash",
         MainLauncher = true, NoHistory = true, ConfigurationChanges = ConfigChanges.ScreenSize, ScreenOrientation = ScreenOrientation.Portrait)]
     public class SplashActivity : Activity
     {

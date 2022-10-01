@@ -1,10 +1,12 @@
 ﻿using Android.Content;
-using MobileMaple.Droid.Renderers;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 
+using MonsterBoxRemote.Mobile.Droid.Renderers;
+
 [assembly: ExportRenderer(typeof(Picker), typeof(StylelessPicker))]
-namespace MobileMaple.Droid.Renderers
+namespace MonsterBoxRemote.Mobile.Droid.Renderers
 {
     public class StylelessPicker : PickerRenderer
     {
