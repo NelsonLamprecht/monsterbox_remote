@@ -23,9 +23,9 @@
 	<key>MinimumOSVersion</key>
 	<string>8.0</string>
 	<key>CFBundleDisplayName</key>
-	<string>Maple</string>
+	<string>MonsterBox Remote</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.companyname.Connected.Client</string>
+	<string>com.Sorbitol.MonsterBoxRemote.Mobile.iOS</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>UILaunchStoryboardName</key>

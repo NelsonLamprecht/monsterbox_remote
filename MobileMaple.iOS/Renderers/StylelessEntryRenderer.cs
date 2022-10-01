@@ -1,11 +1,12 @@
-﻿using MobileMaple.iOS.Renderers;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using UIKit;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
+using MonsterBoxRemote.Mobile.iOS.Renderers;
+
 [assembly: ExportRenderer(typeof(Entry), typeof(StylelessEntryRenderer))]
-namespace MobileMaple.iOS.Renderers
+namespace MonsterBoxRemote.Mobile.iOS.Renderers
 {
     public class StylelessEntryRenderer : EntryRenderer
     {

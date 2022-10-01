@@ -1,6 +1,6 @@
 ﻿using UIKit;
 
-namespace MobileMaple.iOS
+namespace MonsterBoxRemote.Mobile.iOS
 {
     public class Application
     {
