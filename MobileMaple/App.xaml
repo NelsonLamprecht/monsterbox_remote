@@ -6,12 +6,12 @@
     
     <Application.Resources>
         <ResourceDictionary>
-            <Color x:Key="ButtonActive">#23ABE3</Color>
+            <Color x:Key="ButtonActive">#fd7708</Color>
             <Color x:Key="ButtonInactive">#555</Color>
 
             <Style x:Key="ButtonStyle" TargetType="Button">
-                <Setter Property="BackgroundColor" Value="#23ABE3" />
-                <Setter Property="TextColor" Value="White" />
+                <Setter Property="BackgroundColor" Value="#fd7708" />
+                <Setter Property="TextColor" Value="#000000" />
                 <Setter Property="FontAttributes" Value="Bold" />
                 <Setter Property="CornerRadius" Value="5" />
                 <Setter Property="HeightRequest" Value="50" />

@@ -4,13 +4,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
     xmlns:viewmodel="clr-namespace:MonsterBoxRemote.Mobile.ViewModel"
-    x:DataType="viewmodel:LedControllerViewModel"
+    x:DataType="viewmodel:MonsterBoxControllerViewModel"
     ios:Page.UseSafeArea="true"
     x:Class="MonsterBoxRemote.Mobile.View.MonsterBoxControllerPage"
     BackgroundColor="White"
     Title="MonsterBox Controller">
     <ContentPage.BindingContext>
-        <viewmodel:LedControllerViewModel />
+        <viewmodel:MonsterBoxControllerViewModel />
     </ContentPage.BindingContext>
     
     <ContentPage.Content>
