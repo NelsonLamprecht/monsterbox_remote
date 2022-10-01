@@ -11,7 +11,7 @@ namespace MonsterBoxRemote.Mobile.View
             NavigationPage.SetBackButtonTitle(this, "Back");            
         }
 
-        void BtnLedClicked(object sender, EventArgs e)
+        void BtnMonsterBoxClicked(object sender, EventArgs e)
         {
             Navigation.PushAsync(new LedControllerPage());
         }       

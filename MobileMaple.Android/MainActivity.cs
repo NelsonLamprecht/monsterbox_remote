@@ -5,7 +5,7 @@ using Android.Runtime;
 
 namespace MonsterBoxRemote.Mobile.Droid
 {
-    [Activity(Label = "Maple", Icon = "@mipmap/icon_launcher", RoundIcon = "@mipmap/icon_round_launcher", Theme = "@style/MainTheme",
+    [Activity(Label = "MonsterBoxRemote", Icon = "@mipmap/icon_launcher", RoundIcon = "@mipmap/icon_round_launcher", Theme = "@style/MainTheme",
         LaunchMode = LaunchMode.SingleTask, ConfigurationChanges = ConfigChanges.ScreenSize, ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
