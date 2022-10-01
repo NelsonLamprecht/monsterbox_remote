@@ -7,7 +7,7 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="5da64638-28c6-496e-a6c4-bb085c8e35ea"
+    Name="918f1918-ac9c-4044-82cf-2ef6a2258af1"
     Publisher="CN=b223dc4b-4cac-492f-8741-2644cfbb4be2"
     Version="1.0.0.0" />
 
@@ -15,7 +15,7 @@
 
   <Properties>
     <DisplayName>MonsterBox Remote</DisplayName>
-    <PublisherDisplayName>b223dc4b-4cac-492f-8741-2644cfbb4be2</PublisherDisplayName>
+    <PublisherDisplayName>Sorbitol</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
 
@@ -44,7 +44,7 @@
             <uap:ShowOn Tile="square310x310Logo" />
           </uap:ShowNameOnTiles>
         </uap:DefaultTile>
-        <uap:SplashScreen Image="Assets\SplashScreen.png"  BackgroundColor="#23ABE3"/>
+        <uap:SplashScreen Image="Assets\SplashScreen.png"  BackgroundColor="#8929bf"/>
       </uap:VisualElements>
     </Application>
   </Applications>
