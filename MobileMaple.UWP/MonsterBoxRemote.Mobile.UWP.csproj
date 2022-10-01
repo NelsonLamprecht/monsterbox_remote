@@ -7,8 +7,8 @@
     <ProjectGuid>{788B9BFD-ADF0-40C6-ADC2-E3202BAFD2BA}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ConnectedLed.Client.UWP</RootNamespace>
-    <AssemblyName>ConnectedLed.Client.UWP</AssemblyName>
+    <RootNamespace>MonsterBoxRemote.Mobile.UWP</RootNamespace>
+    <AssemblyName>MonsterBoxRemote.Mobile.UWP</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.19041.0</TargetPlatformVersion>
