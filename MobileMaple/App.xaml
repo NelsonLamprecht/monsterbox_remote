@@ -6,7 +6,7 @@
     
     <Application.Resources>
         <ResourceDictionary>
-            <Color x:Key="ButtonActive">#fd7708</Color>
+            <Color x:Key="ButtonActive">#8929bf</Color>
             <Color x:Key="ButtonInactive">#555</Color>
 
             <Style x:Key="ButtonStyle" TargetType="Button">
@@ -15,6 +15,11 @@
                 <Setter Property="FontAttributes" Value="Bold" />
                 <Setter Property="CornerRadius" Value="5" />
                 <Setter Property="HeightRequest" Value="50" />
+            </Style>
+
+            <Style x:Key="LabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="#000000"/>
+                <Setter Property="FontSize" Value="30"/>
             </Style>
         </ResourceDictionary>
     </Application.Resources>

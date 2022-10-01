@@ -7,7 +7,8 @@
     x:DataType="viewmodel:MonsterBoxControllerViewModel"
     ios:Page.UseSafeArea="true"
     x:Class="MonsterBoxRemote.Mobile.View.MonsterBoxControllerPage"
-    BackgroundColor="White"
+    BackgroundColor="#2bd011"  
+    
     Title="MonsterBox Controller">
     <ContentPage.BindingContext>
         <viewmodel:MonsterBoxControllerViewModel />
@@ -30,9 +31,9 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <Label Grid.Row="0" Text="Maple servers:" FontSize="Medium" TextColor="Black" />
+                <Label Grid.Row="0" Text="Servers:" FontSize="Medium" Style="{StaticResource LabelStyle}" />
 
-                <Frame Grid.Row="1" BackgroundColor="#23ABE3" HasShadow="False" CornerRadius="5" Padding="10,0,0,0">
+                <Frame Grid.Row="1" BackgroundColor="#8929bf" HasShadow="False" CornerRadius="5" Padding="10,0,0,0">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -40,7 +41,7 @@
                         </Grid.ColumnDefinitions>
 
                         <Grid Grid.Column="0">
-                            <Picker TextColor="White" FontSize="Medium" BackgroundColor="Transparent"
+                            <Picker TextColor="White" FontSize="Medium" BackgroundColor="{StaticResource ButtonActive}"
                                 ItemsSource="{Binding HostList}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedServer}"/>
                             <Label IsVisible="{Binding IsServerListEmpty}" Text="Pick a server" 
                                 FontSize="Medium" TextColor="White" VerticalOptions="Center" />
@@ -62,12 +63,12 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
-                        <Label Grid.Column="0" Text="IP:" TextColor="White" FontSize="Medium"  FontAttributes="Bold" VerticalOptions="Center"/>
+                        <Label Grid.Column="0" Text="IP:" FontSize="Medium"  FontAttributes="Bold" VerticalOptions="Center" Style="{StaticResource LabelStyle}"/>
 
                         <Entry Grid.Column="1" Text="{Binding SelectedServer.IpAddress}" TextColor="White" FontSize="Medium" 
                             BackgroundColor="#AB5D30" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
 
-                        <Label Grid.Column="2" Text="Port:" TextColor="White" FontSize="Medium" FontAttributes="Bold" VerticalOptions="Center"  />
+                        <Label Grid.Column="2" Text="Port:" FontSize="Medium" FontAttributes="Bold" VerticalOptions="Center" Style="{StaticResource LabelStyle}"  />
 
                         <Entry Grid.Column="3" Text="{Binding ServerPort}" TextColor="White" FontSize="Medium" Keyboard="Numeric"
                             BackgroundColor="#AB5D30" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
@@ -92,11 +93,11 @@
                                 
                             <Label                                 
                                 Text="Begin Iterations"                                     
-                                FontSize="Medium" TextColor="White" />
+                                FontSize="Medium" Style="{StaticResource LabelStyle}" />
 
                             <Label                                
                                 Text="{Binding BeginIterations}" 
-                                FontSize="Medium" TextColor="White" />
+                                FontSize="Medium" Style="{StaticResource LabelStyle}" />
 
                             <Stepper                                   
                                 Minimum="0"
@@ -112,11 +113,11 @@
 
                             <Label                               
                                 Text="End Iterations"                                     
-                                FontSize="Medium" TextColor="White" />
+                                FontSize="Medium" Style="{StaticResource LabelStyle}" />
 
                             <Label                                
                                 Text="{Binding EndIterations}" 
-                                FontSize="Medium" TextColor="White" />
+                                FontSize="Medium" Style="{StaticResource LabelStyle}" />
 
                             <Stepper 
                                 Minimum="0"
@@ -133,11 +134,11 @@
 
                             <Label                               
                                 Text="Begin Delay"                                     
-                                FontSize="Medium" TextColor="White" />
+                                FontSize="Medium" Style="{StaticResource LabelStyle}" />
 
                             <Label                                
                                 Text="{Binding BeginDelay}" 
-                                FontSize="Medium" TextColor="White" />
+                                FontSize="Medium" Style="{StaticResource LabelStyle}" />
 
                             <Stepper 
                                 Minimum="0"
@@ -154,11 +155,11 @@
 
                             <Label                               
                                 Text="End Delay"                                     
-                                FontSize="Medium" TextColor="White" />
+                                FontSize="Medium" Style="{StaticResource LabelStyle}" />
 
                             <Label                                
                                 Text="{Binding EndDelay}" 
-                                FontSize="Medium" TextColor="White" />
+                                FontSize="Medium" Style="{StaticResource LabelStyle}" />
 
                             <Stepper 
                                 Minimum="0"

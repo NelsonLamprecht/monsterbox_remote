@@ -5,14 +5,14 @@
     xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
     ios:Page.UseSafeArea="true"
     x:Class="MonsterBoxRemote.Mobile.View.MainPage"
-    Title="Maple Servers">
+    Title="Servers">
 
     <ContentPage.Content>
         <StackLayout Padding="20" Spacing="10">
             <Label Text="Select a server:" TextColor="Black" FontSize="Medium" Margin="0,0,0,10" />
 
             <Button x:Name="btnMonsterBox" Text="MonsterBox Controller" Clicked="BtnMonsterBoxClicked" HeightRequest="60"
-                TextColor="White" BackgroundColor="{StaticResource ButtonActive}" />
+                TextColor="Black" BackgroundColor="{StaticResource ButtonActive}" />
 
             
         </StackLayout>
