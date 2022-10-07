@@ -89,7 +89,9 @@
                         <StackLayout                             
                             Grid.Column="0"                            
                             BackgroundColor="Gray"                           
-                            Spacing="10" HorizontalOptions="Start" VerticalOptions="Center">
+                            Spacing="10" HorizontalOptions="Start" VerticalOptions="Center"
+                            WidthRequest="175"
+                            >
                                 
                             <Label                                 
                                 Text="Begin Iterations"                                     
@@ -103,13 +105,17 @@
                                 Minimum="0"
                                 Maximum="100"
                                 Increment="5"
-                                ValueChanged="BeginIterationsStepper_ValueChanged" />                            
+                                ValueChanged="BeginIterationsStepper_ValueChanged"
+                                HorizontalOptions="CenterAndExpand"
+                                />                            
                         </StackLayout>
                         
                         <StackLayout 
                             Grid.Column="1"
                             BackgroundColor="Gray"                                                               
-                            Spacing="10" HorizontalOptions="End" VerticalOptions="Center">
+                            Spacing="10" HorizontalOptions="End" VerticalOptions="Center"
+                            WidthRequest="175"
+                            >
 
                             <Label                               
                                 Text="End Iterations"                                     
@@ -123,14 +129,18 @@
                                 Minimum="0"
                                 Maximum="100"
                                 Increment="5"
-                                ValueChanged="EndIterationsStepper_ValueChanged" />
-                                
+                                ValueChanged="EndIterationsStepper_ValueChanged" 
+                                HorizontalOptions="CenterAndExpand"
+                                />
+
                         </StackLayout>
-                        
+
                         <StackLayout 
                             Grid.Column="2"
                             BackgroundColor="Gray"                                                          
-                            Spacing="10" HorizontalOptions="End" VerticalOptions="Center">
+                            Spacing="10" HorizontalOptions="End" VerticalOptions="Center"
+                            WidthRequest="175"
+                            >
 
                             <Label                               
                                 Text="Begin Delay"                                     
@@ -144,14 +154,18 @@
                                 Minimum="0"
                                 Maximum="100"
                                 Increment="5"
-                                ValueChanged="BeginDelayStepper_ValueChanged" />
+                                ValueChanged="BeginDelayStepper_ValueChanged" 
+                                HorizontalOptions="CenterAndExpand"
+                                />
 
                         </StackLayout>
 
                         <StackLayout 
                             Grid.Column="3"    
                             BackgroundColor="Gray"                           
-                            Spacing="10" HorizontalOptions="End" VerticalOptions="Center">
+                            Spacing="10" HorizontalOptions="End" VerticalOptions="Center"
+                            WidthRequest="175"
+                            >
 
                             <Label                               
                                 Text="End Delay"                                     
@@ -165,7 +179,9 @@
                                 Minimum="0"
                                 Maximum="100"
                                 Increment="5"
-                                ValueChanged="EndDelayStepper_ValueChanged" />
+                                ValueChanged="EndDelayStepper_ValueChanged" 
+                                HorizontalOptions="CenterAndExpand"
+                                />
 
                         </StackLayout>
 
@@ -191,7 +207,7 @@
 
                 <Frame Grid.Row="4" BackgroundColor="#EF7D3B" HasShadow="False" CornerRadius="5" Padding="10">
                     <Button Text="Growl" Style="{StaticResource ButtonStyle}" 
-                                Command="{Binding SendCommand}" CommandParameter="TurnOn">
+                                Command="{Binding SendCommand}" CommandParameter="Growl">
                         <Button.Triggers>
                             <DataTrigger TargetType="Button" Binding="{Binding IsShake}" Value="true">
                                 <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
