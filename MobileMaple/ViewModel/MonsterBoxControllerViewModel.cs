@@ -48,12 +48,12 @@ namespace MonsterBoxRemote.Mobile.ViewModel
         {
             SendCommand = new Command(async (obj) => await SendMeadowCommand(obj as string));
             IsShake = true;
-            
+
         }
 
         async Task SendMeadowCommand(string command)
         {
-            if (IsBusy || SelectedServer == null)            
+            if (IsBusy || SelectedServer == null)
             {
                 return;
             }
@@ -63,9 +63,9 @@ namespace MonsterBoxRemote.Mobile.ViewModel
             try
             {
                 bool response = false;
-                switch (command)
+                switch (command.ToLower())
                 {
-                    case "Shake":
+                    case "shake":
                         {
                             var query = new Dictionary<string, string>()
                             {
@@ -78,22 +78,40 @@ namespace MonsterBoxRemote.Mobile.ViewModel
                             response = await PostHttpDataWithCommand(complexCommand);
                             break;
                         }
+                    case "werewolf":
+                    case "laugh":
+                    case "chains":
+                    case "heartbeat":
+                    case "dragongrowl":
+                        {
+                            Dictionary<string, string> query = GetSoundFileParameters(command);
+                            var complexCommand = RequestUriUtil.GetUriWithQueryString("sound", query).ToLower();
+                            response = await PostHttpDataWithCommand(complexCommand);
+                            break;
+                        }
                     default:
                         {
                             response = await PostHttpDataWithCommand(command);
                             break;
                         }
                 }
-                
+
 
                 if (response)
                 {
                     IsShake = false;
 
-                    switch (command) 
+                    switch (command)
                     {
-                        case "Shake": IsShake = true; break;
-                        default: throw new Exception($"Unknown command fallthrough: {command}.");
+                        case "Shake":
+                            {
+                                IsShake = true;
+                                break;
+                            }
+                        default:
+                            {
+                                throw new Exception($"Unknown command fallthrough: {command}.");
+                            }
                     }
                 }
                 else
@@ -111,15 +129,56 @@ namespace MonsterBoxRemote.Mobile.ViewModel
             }
         }
 
-        private async Task<bool> PostHttpDataWithCommand(string command) 
+        private static Dictionary<string, string> GetFileSoundParameters(int fileNumber, int fileDuration)
+        {
+            return new Dictionary<string, string>()
+            {
+                ["filenumber"] = fileNumber.ToString(),
+                ["fileduration"] = fileDuration.ToString()
+            };
+        }
+
+        private static Dictionary<string, string> GetSoundFileParameters(string command)
+        {
+            switch (command)
+            {
+                case "werewolf":
+                    {
+                        return GetFileSoundParameters(1,9);
+                    }
+                case "laugh":
+                    {
+                        return GetFileSoundParameters(2,2);
+                    }
+
+                case "chains":
+                    {
+                        return GetFileSoundParameters(3, 13);
+                    }
+
+                case "heartbeat":
+                    {
+                        return GetFileSoundParameters(4, 12);
+                    }
+                case "dragongrowl":
+                    {
+                        return GetFileSoundParameters(4, 12);
+                    }
+                default:
+                    {
+                        return null;
+                    }
+            }
+        }
+
+        private async Task<bool> PostHttpDataWithCommand(string command)
         {
             bool response;
-            
-            //Debug.WriteLine($"{SelectedServer?.IpAddress}, {ServerPort}, {command}, {string.Empty}");
-            //response = true;
+
+            Debug.WriteLine($"{SelectedServer?.IpAddress}, {ServerPort}, {command}, {string.Empty}");
             
             response = await client.PostAsync(SelectedServer.IpAddress, ServerPort, command, string.Empty);
-            
+
             return response;
         }
     }
