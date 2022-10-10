@@ -9,13 +9,6 @@ namespace MonsterBoxRemote.Mobile.ViewModel
 {
     public class MonsterBoxControllerViewModel : BaseViewModel
     {
-        bool _isShake;
-        public bool IsShake
-        {
-            get => _isShake;
-            set { _isShake = value; OnPropertyChanged(nameof(IsShake)); }
-        }
-
         int _beginIterations = 25;
         public int BeginIterations
         {
@@ -46,9 +39,8 @@ namespace MonsterBoxRemote.Mobile.ViewModel
 
         public MonsterBoxControllerViewModel() : base()
         {
+            IsBusy = false;
             SendCommand = new Command(async (obj) => await SendMeadowCommand(obj as string));
-            IsShake = true;
-
         }
 
         async Task SendMeadowCommand(string command)
@@ -83,10 +75,23 @@ namespace MonsterBoxRemote.Mobile.ViewModel
                     case "chains":
                     case "heartbeat":
                     case "dragongrowl":
+                    case "doorcreek":
+                    case "creature1":
+                    case "creature2":
+                    case "creature3":
+                    case "creature4":
+                    case "creature5":
                         {
                             Dictionary<string, string> query = GetSoundFileParameters(command);
-                            var complexCommand = RequestUriUtil.GetUriWithQueryString("sound", query).ToLower();
-                            response = await PostHttpDataWithCommand(complexCommand);
+                            if (query != null)
+                            {
+                                var complexCommand = RequestUriUtil.GetUriWithQueryString("sound", query).ToLower();
+                                response = await PostHttpDataWithCommand(complexCommand);
+                            }
+                            else
+                            {
+                                Debug.WriteLine("Unknown sound file.");                                
+                            }
                             break;
                         }
                     default:
@@ -94,30 +99,7 @@ namespace MonsterBoxRemote.Mobile.ViewModel
                             response = await PostHttpDataWithCommand(command);
                             break;
                         }
-                }
-
-
-                if (response)
-                {
-                    IsShake = false;
-
-                    switch (command)
-                    {
-                        case "Shake":
-                            {
-                                IsShake = true;
-                                break;
-                            }
-                        default:
-                            {
-                                throw new Exception($"Unknown command fallthrough: {command}.");
-                            }
-                    }
-                }
-                else
-                {
-                    await App.Current.DisplayAlert("Error", "Request failed.", "Close");
-                }
+                }                
             }
             catch (Exception ex)
             {
@@ -148,21 +130,43 @@ namespace MonsterBoxRemote.Mobile.ViewModel
                     }
                 case "laugh":
                     {
-                        return GetFileSoundParameters(2,2);
+                        return GetFileSoundParameters(2,3);
                     }
-
                 case "chains":
                     {
                         return GetFileSoundParameters(3, 13);
                     }
-
                 case "heartbeat":
                     {
                         return GetFileSoundParameters(4, 12);
                     }
                 case "dragongrowl":
                     {
-                        return GetFileSoundParameters(4, 12);
+                        return GetFileSoundParameters(5, 5);
+                    }
+                case "doorcreek":
+                    {
+                        return GetFileSoundParameters(6, 2);
+                    }
+                case "creature1":
+                    {
+                        return GetFileSoundParameters(7, 05);
+                    }
+                case "creature2":
+                    {
+                        return GetFileSoundParameters(8, 03);
+                    }                
+                case "creature3":
+                    {
+                        return GetFileSoundParameters(9, 7);
+                    }
+                case "creature4":
+                    {
+                        return GetFileSoundParameters(10, 7);
+                    }
+                case "creature5":
+                    {
+                        return GetFileSoundParameters(11, 6);
                     }
                 default:
                     {
