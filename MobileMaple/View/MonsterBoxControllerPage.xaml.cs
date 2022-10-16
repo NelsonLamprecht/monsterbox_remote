@@ -21,8 +21,7 @@ namespace MonsterBoxRemote.Mobile.View
         {
             base.OnAppearing();
             await ViewModel.GetServers();
-        }
-    
+        }    
 
         private void BeginIterationsStepper_ValueChanged(object sender, ValueChangedEventArgs e)
         {

@@ -16,24 +16,15 @@
     
     <ContentPage.Content>
         <Grid>
-            <Grid RowSpacing="10" Padding="20">
+            <Grid RowSpacing="10" Padding="10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <Label Grid.Row="0" Text="Servers:" FontSize="Medium" Style="{StaticResource LabelStyle}" />
-
-                <Frame Grid.Row="1" BackgroundColor="#8929bf" HasShadow="False" CornerRadius="5" Padding="10,0,0,0">
+                <Frame Grid.Row="0" 
+                       BackgroundColor="#8929bf" HasShadow="False" CornerRadius="5" Padding="10,0,0,0">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -54,7 +45,9 @@
                     </Grid>
                 </Frame>
 
-                <Frame Grid.Row="2" BackgroundColor="#EF7D3B" HasShadow="False" CornerRadius="5" Padding="10">
+                <Frame 
+                    Grid.Row="1"                    
+                    BackgroundColor="#EF7D3B" HasShadow="False" CornerRadius="5" Padding="10">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -63,10 +56,15 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
-                        <Label Grid.Column="0" Text="IP:" FontSize="Medium"  FontAttributes="Bold" VerticalOptions="Center" Style="{StaticResource LabelStyle}"/>
+                        <Label Grid.Column="0" 
+                               Text="IP:" FontSize="Medium"  FontAttributes="Bold"                                
+                               VerticalOptions="Center"                                
+                               Style="{StaticResource LabelStyle}"/>
 
-                        <Entry Grid.Column="1" Text="{Binding SelectedServer.IpAddress}" TextColor="White" FontSize="Medium" 
-                            BackgroundColor="#AB5D30" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                        <Entry Grid.Column="1"                                                               
+                               Text="{Binding SelectedServer.IpAddress}" TextColor="White" FontSize="Medium" 
+                               BackgroundColor="#AB5D30" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"                               
+                               />
 
                         <Label Grid.Column="2" Text="Port:" FontSize="Medium" FontAttributes="Bold" VerticalOptions="Center" Style="{StaticResource LabelStyle}"  />
 
@@ -75,24 +73,28 @@
                     </Grid>
                 </Frame>
 
-                <Frame Grid.Row="3" BackgroundColor="#EF7D3B" HasShadow="False" CornerRadius="5" Padding="10">
+                <Frame 
+                    Grid.Row="3"                      
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="EndAndExpand"
+                    BackgroundColor="#EF7D3B" HasShadow="False" CornerRadius="5" Padding="10">
                     <Grid>
-                        <Grid.RowDefinitions>                            
+                        <Grid.RowDefinitions>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />                            
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        
+
                         <StackLayout                             
                             Grid.Column="0"                            
                             BackgroundColor="Black"                           
-                            Spacing="10" HorizontalOptions="Start" VerticalOptions="Center"
+                            HorizontalOptions="CenterAndExpand" VerticalOptions="Center"
                             WidthRequest="175"
                             >
-                                
+
                             <Label                                 
                                 Text="Begin Iterations"                                     
                                 FontSize="Medium" Style="{StaticResource LabelStyle}" />
@@ -107,17 +109,16 @@
                                 Increment="5"
                                 ValueChanged="BeginIterationsStepper_ValueChanged"
                                 HorizontalOptions="CenterAndExpand"
-                                BackgroundColor="Red"                                
-                                Margin="15"
+                                Style="{StaticResource StepperStyle}"
                                 >
-                                
+
                             </Stepper>
                         </StackLayout>
-                        
+
                         <StackLayout 
                             Grid.Column="1"
                             BackgroundColor="Black"                                                                                        
-                            Spacing="10" HorizontalOptions="End" VerticalOptions="Center"
+                            HorizontalOptions="CenterAndExpand" VerticalOptions="Center"
                             WidthRequest="175"
                             >
 
@@ -134,9 +135,8 @@
                                 Maximum="100"
                                 Increment="5"
                                 ValueChanged="EndIterationsStepper_ValueChanged" 
-                                HorizontalOptions="CenterAndExpand"
-                                BackgroundColor="Red"
-                                Margin="15"
+                                HorizontalOptions="CenterAndExpand"        
+                                Style="{StaticResource StepperStyle}"
                                 />
 
                         </StackLayout>
@@ -144,7 +144,7 @@
                         <StackLayout 
                             Grid.Column="2"
                             BackgroundColor="Black"                                                                                    
-                            Spacing="10" HorizontalOptions="End" VerticalOptions="Center"
+                            HorizontalOptions="CenterAndExpand" VerticalOptions="Center"
                             WidthRequest="175"
                             >
 
@@ -161,9 +161,8 @@
                                 Maximum="100"
                                 Increment="5"
                                 ValueChanged="BeginDelayStepper_ValueChanged" 
-                                HorizontalOptions="CenterAndExpand"
-                                BackgroundColor="Red"
-                                Margin="15"
+                                HorizontalOptions="CenterAndExpand"       
+                                Style="{StaticResource StepperStyle}"
                                 />
 
                         </StackLayout>
@@ -171,7 +170,7 @@
                         <StackLayout 
                             Grid.Column="3"    
                             BackgroundColor="Black"                                                     
-                            Spacing="10" HorizontalOptions="End" VerticalOptions="Center"
+                            HorizontalOptions="Center" VerticalOptions="Center"
                             WidthRequest="175"
                             >
 
@@ -188,13 +187,12 @@
                                 Maximum="100"
                                 Increment="5"
                                 ValueChanged="EndDelayStepper_ValueChanged" 
-                                HorizontalOptions="CenterAndExpand"
-                                BackgroundColor="Red"
-                                Margin="15"
+                                HorizontalOptions="CenterAndExpand"                                
+                                Style="{StaticResource StepperStyle}"                                
                                 />
 
                         </StackLayout>
-
+                        
                         <Button
                             Grid.Row="1"
                             Grid.ColumnSpan="4"
@@ -209,13 +207,11 @@
                                 </DataTrigger>
                             </Button.Triggers>
                         </Button>
-                    </Grid>
-                    
-                </Frame>
 
-                <Frame Grid.Row="4" BackgroundColor="#EF7D3B" HasShadow="False" CornerRadius="5" Padding="10">
-                    <FlexLayout>                       
-                        <Button Text="Werewolf" Style="{StaticResource ButtonStyle}" 
+                        <Button 
+                            Grid.Column="0"
+                            Grid.Row="2"                                
+                                Text="Werewolf" Style="{StaticResource ButtonStyle}" 
                                 Command="{Binding SendCommand}" CommandParameter="werewolf">
                             <Button.Triggers>
                                 <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="false">
@@ -226,7 +222,11 @@
                                 </DataTrigger>
                             </Button.Triggers>
                         </Button>
-                        <Button Text="Laugh" Style="{StaticResource ButtonStyle}" 
+
+                        <Button 
+                            Grid.Column="1"
+                            Grid.Row="2"                                
+                                Text="Laugh" Style="{StaticResource ButtonStyle}" 
                                 Command="{Binding SendCommand}" CommandParameter="laugh">
                             <Button.Triggers>
                                 <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="false">
@@ -237,7 +237,11 @@
                                 </DataTrigger>
                             </Button.Triggers>
                         </Button>
-                        <Button Text="Chains" Style="{StaticResource ButtonStyle}" 
+
+                        <Button 
+                            Grid.Column="2"
+                            Grid.Row="2" 
+                                Text="Chains" Style="{StaticResource ButtonStyle}" 
                                 Command="{Binding SendCommand}" CommandParameter="chains">
                             <Button.Triggers>
                                 <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="false">
@@ -248,7 +252,11 @@
                                 </DataTrigger>
                             </Button.Triggers>
                         </Button>
-                        <Button Text="Heartbeat" Style="{StaticResource ButtonStyle}" 
+
+                        <Button 
+                            Grid.Column="3"
+                            Grid.Row="2" 
+                            Text="Heartbeat" Style="{StaticResource ButtonStyle}" 
                                 Command="{Binding SendCommand}" CommandParameter="heartbeat">
                             <Button.Triggers>
                                 <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="false">
@@ -259,7 +267,10 @@
                                 </DataTrigger>
                             </Button.Triggers>
                         </Button>
-                        <Button Text="Dragongrowl" Style="{StaticResource ButtonStyle}" 
+
+                        <Button 
+                            Grid.Column="0"
+                            Grid.Row="3" Text="Dragongrowl" Style="{StaticResource ButtonStyle}" 
                                 Command="{Binding SendCommand}" CommandParameter="dragongrowl">
                             <Button.Triggers>
                                 <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="false">
@@ -270,7 +281,10 @@
                                 </DataTrigger>
                             </Button.Triggers>
                         </Button>
-                        <Button Text="Door creek" Style="{StaticResource ButtonStyle}" 
+
+                        <Button 
+                            Grid.Column="1"
+                            Grid.Row="3"  Text="Door creek" Style="{StaticResource ButtonStyle}" 
                                 Command="{Binding SendCommand}" CommandParameter="doorcreek">
                             <Button.Triggers>
                                 <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="false">
@@ -281,7 +295,10 @@
                                 </DataTrigger>
                             </Button.Triggers>
                         </Button>
-                        <Button Text="Creature 1" Style="{StaticResource ButtonStyle}" 
+
+                        <Button 
+                            Grid.Column="2"
+                            Grid.Row="3" Text="Creature 1" Style="{StaticResource ButtonStyle}" 
                                 Command="{Binding SendCommand}" CommandParameter="creature1">
                             <Button.Triggers>
                                 <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="false">
@@ -292,8 +309,11 @@
                                 </DataTrigger>
                             </Button.Triggers>
                         </Button>
-                        
-                        <Button Text="Creature 2" Style="{StaticResource ButtonStyle}" 
+
+                        <Button 
+                            Grid.Column="3"
+                            Grid.Row="3" 
+                            Text="Creature 2" Style="{StaticResource ButtonStyle}" 
                                 Command="{Binding SendCommand}" CommandParameter="creature2">
                             <Button.Triggers>
                                 <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="false">
@@ -304,8 +324,10 @@
                                 </DataTrigger>
                             </Button.Triggers>
                         </Button>
-                        
-                        <Button Text="Creature 3" Style="{StaticResource ButtonStyle}" 
+
+                        <Button 
+                            Grid.Column="0"
+                            Grid.Row="4" Text="Creature 3" Style="{StaticResource ButtonStyle}" 
                                 Command="{Binding SendCommand}" CommandParameter="creature3">
                             <Button.Triggers>
                                 <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="false">
@@ -316,8 +338,11 @@
                                 </DataTrigger>
                             </Button.Triggers>
                         </Button>
-                        
-                        <Button Text="Creature 4" Style="{StaticResource ButtonStyle}" 
+
+                        <Button 
+                            Grid.Column="1"
+                            Grid.Row="4" 
+                            Text="Creature 4" Style="{StaticResource ButtonStyle}" 
                                 Command="{Binding SendCommand}" CommandParameter="creature4">
                             <Button.Triggers>
                                 <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="false">
@@ -328,8 +353,10 @@
                                 </DataTrigger>
                             </Button.Triggers>
                         </Button>
-                        
-                        <Button Text="Creature 5" Style="{StaticResource ButtonStyle}" 
+
+                        <Button 
+                            Grid.Column="2"
+                            Grid.Row="4" Text="Creature 5" Style="{StaticResource ButtonStyle}" 
                                 Command="{Binding SendCommand}" CommandParameter="creature5">
                             <Button.Triggers>
                                 <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="false">
@@ -340,10 +367,10 @@
                                 </DataTrigger>
                             </Button.Triggers>
                         </Button>
-                    </FlexLayout>
-                    
+
+                    </Grid>
                 </Frame>
-                
+
                 <Grid IsVisible="{Binding IsBusy}" BackgroundColor="#88000000">
                     <StackLayout Spacing="10" HorizontalOptions="Center" VerticalOptions="Center">
                         <Label Text="Please Wait..." TextColor="White" HorizontalOptions="Center" />

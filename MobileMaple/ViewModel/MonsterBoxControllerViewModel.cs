@@ -40,7 +40,7 @@ namespace MonsterBoxRemote.Mobile.ViewModel
         public MonsterBoxControllerViewModel() : base()
         {
             IsBusy = false;
-            SendCommand = new Command(async (obj) => await SendMeadowCommand(obj as string));
+            SendCommand = new Command(async (obj) => await SendMeadowCommand(obj as string));            
         }
 
         async Task SendMeadowCommand(string command)
