@@ -28,7 +28,10 @@ namespace MonsterBoxRemote.Mobile.View
             Debug.WriteLine(e.NewValue);
             if (int.TryParse(e.NewValue.ToString(), out var value))
             {
-                ViewModel.BeginIterations = value;
+                if (ViewModel != null)
+                {
+                    ViewModel.BeginIterations = value;
+                }
             }
         }
 
@@ -36,8 +39,11 @@ namespace MonsterBoxRemote.Mobile.View
         {
             Debug.WriteLine(e.NewValue);
             if (int.TryParse(e.NewValue.ToString(), out var value))
-            {                
-                ViewModel.EndIterations = value;
+            {
+                if (ViewModel != null)
+                {
+                    ViewModel.EndIterations = value;
+                }
             }
         }
 
@@ -46,7 +52,10 @@ namespace MonsterBoxRemote.Mobile.View
             Debug.WriteLine(e.NewValue);
             if (int.TryParse(e.NewValue.ToString(), out var value))
             {
-                ViewModel.BeginDelay = value;
+                if (ViewModel != null)
+                {
+                    ViewModel.BeginDelay = value;
+                }
             }
         }
 
@@ -55,8 +64,11 @@ namespace MonsterBoxRemote.Mobile.View
             Debug.WriteLine(e.NewValue);
             if (int.TryParse(e.NewValue.ToString(), out var value))
             {
-                ViewModel.EndDelay = value;
-            }
+                if (ViewModel != null)
+                {
+                    ViewModel.EndDelay = value;
+                }
+            }            
         }
     }
 }

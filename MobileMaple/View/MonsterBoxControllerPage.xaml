@@ -13,7 +13,7 @@
     <ContentPage.BindingContext>
         <viewmodel:MonsterBoxControllerViewModel />
     </ContentPage.BindingContext>
-    
+
     <ContentPage.Content>
         <Grid>
             <Grid RowSpacing="10" Padding="10">
@@ -23,8 +23,9 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <Frame Grid.Row="0" 
-                       BackgroundColor="#8929bf" HasShadow="False" CornerRadius="5" Padding="10,0,0,0">
+                <Frame
+                    Grid.Row="0"
+                    BackgroundColor="#8929bf" HasShadow="False" CornerRadius="5" Padding="10,0,0,0">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -46,7 +47,7 @@
                 </Frame>
 
                 <Frame 
-                    Grid.Row="1"                    
+                    Grid.Row="1"
                     BackgroundColor="#EF7D3B" HasShadow="False" CornerRadius="5" Padding="10">
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -57,13 +58,13 @@
                         </Grid.ColumnDefinitions>
 
                         <Label Grid.Column="0" 
-                               Text="IP:" FontSize="Medium"  FontAttributes="Bold"                                
-                               VerticalOptions="Center"                                
+                               Text="IP:" FontSize="Medium"  FontAttributes="Bold"
+                               VerticalOptions="Center"
                                Style="{StaticResource LabelStyle}"/>
 
-                        <Entry Grid.Column="1"                                                               
-                               Text="{Binding SelectedServer.IpAddress}" TextColor="White" FontSize="Medium" 
-                               BackgroundColor="#AB5D30" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"                               
+                        <Entry Grid.Column="1"
+                               Text="{Binding SelectedServer.IpAddress}" TextColor="White" FontSize="Medium"
+                               BackgroundColor="#AB5D30" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
                                />
 
                         <Label Grid.Column="2" Text="Port:" FontSize="Medium" FontAttributes="Bold" VerticalOptions="Center" Style="{StaticResource LabelStyle}"  />
@@ -74,59 +75,56 @@
                 </Frame>
 
                 <Frame 
-                    Grid.Row="3"                      
+                    Grid.Row="3"
                     HorizontalOptions="CenterAndExpand"
-                    VerticalOptions="EndAndExpand"
+                    VerticalOptions="End"
                     BackgroundColor="#EF7D3B" HasShadow="False" CornerRadius="5" Padding="10">
                     <Grid>
                         <Grid.RowDefinitions>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
-                        <StackLayout                             
-                            Grid.Column="0"                            
-                            BackgroundColor="Black"                           
-                            HorizontalOptions="CenterAndExpand" VerticalOptions="Center"
-                            WidthRequest="175"
+                        <StackLayout
+                            Grid.Column="0"
+                            BackgroundColor="Black"
+                            Padding="0,0,0,10"
                             >
 
-                            <Label                                 
-                                Text="Begin Iterations"                                     
+                            <Label
+                                Text="Begin Iterations"
                                 FontSize="Medium" Style="{StaticResource LabelStyle}" />
 
-                            <Label                                
-                                Text="{Binding BeginIterations}" 
+                            <Label
+                                Text="{Binding BeginIterations}"
                                 FontSize="Medium" Style="{StaticResource LabelStyle}" />
 
-                            <Stepper                                   
+                            <Stepper
                                 Minimum="0"
                                 Maximum="100"
                                 Increment="5"
+                                Value="{Binding BeginIterations}" 
                                 ValueChanged="BeginIterationsStepper_ValueChanged"
-                                HorizontalOptions="CenterAndExpand"
                                 Style="{StaticResource StepperStyle}"
-                                >
+                                />
 
-                            </Stepper>
                         </StackLayout>
 
                         <StackLayout 
                             Grid.Column="1"
-                            BackgroundColor="Black"                                                                                        
-                            HorizontalOptions="CenterAndExpand" VerticalOptions="Center"
-                            WidthRequest="175"
+                            BackgroundColor="Black"
+                            Padding="0,0,0,10"
                             >
 
-                            <Label                               
-                                Text="End Iterations"                                     
+                            <Label
+                                Text="End Iterations"
                                 FontSize="Medium" Style="{StaticResource LabelStyle}" />
 
-                            <Label                                
+                            <Label
                                 Text="{Binding EndIterations}" 
                                 FontSize="Medium" Style="{StaticResource LabelStyle}" />
 
@@ -134,8 +132,8 @@
                                 Minimum="0"
                                 Maximum="100"
                                 Increment="5"
-                                ValueChanged="EndIterationsStepper_ValueChanged" 
-                                HorizontalOptions="CenterAndExpand"        
+                                Value="{Binding EndIterations}" 
+                                ValueChanged="EndIterationsStepper_ValueChanged"
                                 Style="{StaticResource StepperStyle}"
                                 />
 
@@ -143,16 +141,15 @@
 
                         <StackLayout 
                             Grid.Column="2"
-                            BackgroundColor="Black"                                                                                    
-                            HorizontalOptions="CenterAndExpand" VerticalOptions="Center"
-                            WidthRequest="175"
+                            BackgroundColor="Black"
+                            Padding="0,0,0,10"
                             >
 
-                            <Label                               
-                                Text="Begin Delay"                                     
+                            <Label
+                                Text="Begin Delay"
                                 FontSize="Medium" Style="{StaticResource LabelStyle}" />
 
-                            <Label                                
+                            <Label
                                 Text="{Binding BeginDelay}" 
                                 FontSize="Medium" Style="{StaticResource LabelStyle}" />
 
@@ -160,43 +157,45 @@
                                 Minimum="0"
                                 Maximum="100"
                                 Increment="5"
-                                ValueChanged="BeginDelayStepper_ValueChanged" 
-                                HorizontalOptions="CenterAndExpand"       
+                                Value="{Binding BeginDelay}" 
+                                ValueChanged="BeginDelayStepper_ValueChanged"
                                 Style="{StaticResource StepperStyle}"
                                 />
 
                         </StackLayout>
 
                         <StackLayout 
-                            Grid.Column="3"    
-                            BackgroundColor="Black"                                                     
-                            HorizontalOptions="Center" VerticalOptions="Center"
-                            WidthRequest="175"
+                            Grid.Column="3"
+                            BackgroundColor="Black"
+                            Padding="0,0,0,10"
                             >
 
-                            <Label                               
-                                Text="End Delay"                                     
-                                FontSize="Medium" Style="{StaticResource LabelStyle}" />
+                            <Label
+                                Text="End Delay"
+                                FontSize="Medium"
+                                Style="{StaticResource LabelStyle}" />
 
-                            <Label                                
+                            <Label
                                 Text="{Binding EndDelay}" 
-                                FontSize="Medium" Style="{StaticResource LabelStyle}" />
+                                FontSize="Medium"
+                                Style="{StaticResource LabelStyle}" />
 
                             <Stepper 
                                 Minimum="0"
                                 Maximum="100"
                                 Increment="5"
-                                ValueChanged="EndDelayStepper_ValueChanged" 
-                                HorizontalOptions="CenterAndExpand"                                
+                                Value="{Binding EndDelay}" 
+                                ValueChanged="EndDelayStepper_ValueChanged"                                                        
                                 Style="{StaticResource StepperStyle}"                                
                                 />
 
                         </StackLayout>
-                        
+
                         <Button
                             Grid.Row="1"
                             Grid.ColumnSpan="4"
-                            Text="Shake" Style="{StaticResource ButtonStyle}"                                 
+                            Text="Shake"
+                            Style="{StaticResource ButtonStyle}"
                             Command="{Binding SendCommand}" CommandParameter="shake">
                             <Button.Triggers>
                                 <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="false">
@@ -210,9 +209,10 @@
 
                         <Button 
                             Grid.Column="0"
-                            Grid.Row="2"                                
-                                Text="Werewolf" Style="{StaticResource ButtonStyle}" 
-                                Command="{Binding SendCommand}" CommandParameter="werewolf">
+                            Grid.Row="2" 
+                            Text="Werewolf"
+                            Style="{StaticResource ButtonStyle}"
+                            Command="{Binding SendCommand}" CommandParameter="werewolf">
                             <Button.Triggers>
                                 <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="false">
                                     <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
@@ -225,9 +225,10 @@
 
                         <Button 
                             Grid.Column="1"
-                            Grid.Row="2"                                
-                                Text="Laugh" Style="{StaticResource ButtonStyle}" 
-                                Command="{Binding SendCommand}" CommandParameter="laugh">
+                            Grid.Row="2"
+                            Text="Laugh"
+                            Style="{StaticResource ButtonStyle}" 
+                            Command="{Binding SendCommand}" CommandParameter="laugh">
                             <Button.Triggers>
                                 <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="false">
                                     <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
@@ -241,8 +242,9 @@
                         <Button 
                             Grid.Column="2"
                             Grid.Row="2" 
-                                Text="Chains" Style="{StaticResource ButtonStyle}" 
-                                Command="{Binding SendCommand}" CommandParameter="chains">
+                            Text="Chains"
+                            Style="{StaticResource ButtonStyle}" 
+                            Command="{Binding SendCommand}" CommandParameter="chains">
                             <Button.Triggers>
                                 <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="false">
                                     <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
@@ -256,8 +258,9 @@
                         <Button 
                             Grid.Column="3"
                             Grid.Row="2" 
-                            Text="Heartbeat" Style="{StaticResource ButtonStyle}" 
-                                Command="{Binding SendCommand}" CommandParameter="heartbeat">
+                            Text="Heartbeat"
+                            Style="{StaticResource ButtonStyle}" 
+                            Command="{Binding SendCommand}" CommandParameter="heartbeat">
                             <Button.Triggers>
                                 <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="false">
                                     <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
@@ -270,8 +273,10 @@
 
                         <Button 
                             Grid.Column="0"
-                            Grid.Row="3" Text="Dragongrowl" Style="{StaticResource ButtonStyle}" 
-                                Command="{Binding SendCommand}" CommandParameter="dragongrowl">
+                            Grid.Row="3" 
+                            Text="Dragongrowl"
+                            Style="{StaticResource ButtonStyle}" 
+                            Command="{Binding SendCommand}" CommandParameter="dragongrowl">
                             <Button.Triggers>
                                 <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="false">
                                     <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
@@ -284,8 +289,10 @@
 
                         <Button 
                             Grid.Column="1"
-                            Grid.Row="3"  Text="Door creek" Style="{StaticResource ButtonStyle}" 
-                                Command="{Binding SendCommand}" CommandParameter="doorcreek">
+                            Grid.Row="3"
+                            Text="Door creek"
+                            Style="{StaticResource ButtonStyle}" 
+                            Command="{Binding SendCommand}" CommandParameter="doorcreek">
                             <Button.Triggers>
                                 <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="false">
                                     <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
@@ -298,8 +305,10 @@
 
                         <Button 
                             Grid.Column="2"
-                            Grid.Row="3" Text="Creature 1" Style="{StaticResource ButtonStyle}" 
-                                Command="{Binding SendCommand}" CommandParameter="creature1">
+                            Grid.Row="3"
+                            Text="Creature 1"
+                            Style="{StaticResource ButtonStyle}" 
+                            Command="{Binding SendCommand}" CommandParameter="creature1">
                             <Button.Triggers>
                                 <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="false">
                                     <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
@@ -313,8 +322,9 @@
                         <Button 
                             Grid.Column="3"
                             Grid.Row="3" 
-                            Text="Creature 2" Style="{StaticResource ButtonStyle}" 
-                                Command="{Binding SendCommand}" CommandParameter="creature2">
+                            Text="Creature 2"
+                            Style="{StaticResource ButtonStyle}"
+                            Command="{Binding SendCommand}" CommandParameter="creature2">
                             <Button.Triggers>
                                 <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="false">
                                     <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
@@ -327,8 +337,10 @@
 
                         <Button 
                             Grid.Column="0"
-                            Grid.Row="4" Text="Creature 3" Style="{StaticResource ButtonStyle}" 
-                                Command="{Binding SendCommand}" CommandParameter="creature3">
+                            Grid.Row="4"
+                            Text="Creature 3"
+                            Style="{StaticResource ButtonStyle}" 
+                            Command="{Binding SendCommand}" CommandParameter="creature3">
                             <Button.Triggers>
                                 <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="false">
                                     <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
@@ -342,8 +354,9 @@
                         <Button 
                             Grid.Column="1"
                             Grid.Row="4" 
-                            Text="Creature 4" Style="{StaticResource ButtonStyle}" 
-                                Command="{Binding SendCommand}" CommandParameter="creature4">
+                            Text="Creature 4"
+                            Style="{StaticResource ButtonStyle}" 
+                            Command="{Binding SendCommand}" CommandParameter="creature4">
                             <Button.Triggers>
                                 <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="false">
                                     <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
@@ -356,8 +369,10 @@
 
                         <Button 
                             Grid.Column="2"
-                            Grid.Row="4" Text="Creature 5" Style="{StaticResource ButtonStyle}" 
-                                Command="{Binding SendCommand}" CommandParameter="creature5">
+                            Grid.Row="4"
+                            Text="Creature 5"
+                            Style="{StaticResource ButtonStyle}" 
+                            Command="{Binding SendCommand}" CommandParameter="creature5">
                             <Button.Triggers>
                                 <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="false">
                                     <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />

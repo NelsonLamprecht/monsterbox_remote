@@ -9,21 +9,24 @@
             <Color x:Key="ButtonActive">#8929bf</Color>
             <Color x:Key="ButtonInactive">#555</Color>
 
-            <Style x:Key="ButtonStyle" TargetType="Button">                
+            <Style x:Key="ButtonStyle" TargetType="Button">
                 <Setter Property="TextColor" Value="#000000" />
                 <Setter Property="FontAttributes" Value="Bold" />
                 <Setter Property="CornerRadius" Value="5" />
-                <Setter Property="HeightRequest" Value="25" />
+                <Setter Property="HorizontalOptions" Value="Fill"/>
+                <Setter Property="VerticalOptions" Value="Fill"/>
             </Style>
 
-            <Style x:Key="LabelStyle" TargetType="Label">                
+            <Style x:Key="LabelStyle" TargetType="Label">
                 <Setter Property="TextColor" Value="White"/>
                 <Setter Property="FontSize" Value="25"/>
                 <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
             </Style>
 
             <Style x:Key="StepperStyle" TargetType="Stepper">
-                <Setter Property="Margin" Value="15"/>
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand"/>
+                <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+                <Setter Property="Margin" Value="0,5,0,0"/>
                 <Setter Property="BackgroundColor" Value="Red"/>
             </Style>
         </ResourceDictionary>
