@@ -40,7 +40,7 @@ namespace MonsterBoxRemote.Mobile.ViewModel
         public MonsterBoxControllerViewModel() : base()
         {
             IsBusy = false;
-            SendCommand = new Command(async (obj) => await SendMeadowCommand(obj as string));            
+            SendCommand = new Command(async (obj) => await SendMeadowCommand(obj as string));
         }
 
         async Task SendMeadowCommand(string command)
@@ -76,6 +76,8 @@ namespace MonsterBoxRemote.Mobile.ViewModel
                     case "heartbeat":
                     case "dragongrowl":
                     case "doorcreek":
+                    case "metalhit":
+                    case "raven":
                     case "creature1":
                     case "creature2":
                     case "creature3":
@@ -90,7 +92,7 @@ namespace MonsterBoxRemote.Mobile.ViewModel
                             }
                             else
                             {
-                                Debug.WriteLine("Unknown sound file.");                                
+                                Debug.WriteLine("Unknown sound file.");
                             }
                             break;
                         }
@@ -99,7 +101,7 @@ namespace MonsterBoxRemote.Mobile.ViewModel
                             response = await PostHttpDataWithCommand(command);
                             break;
                         }
-                }                
+                }
             }
             catch (Exception ex)
             {
@@ -150,12 +152,12 @@ namespace MonsterBoxRemote.Mobile.ViewModel
                     }
                 case "creature1":
                     {
-                        return GetFileSoundParameters(7, 05);
+                        return GetFileSoundParameters(7, 5);
                     }
                 case "creature2":
                     {
-                        return GetFileSoundParameters(8, 03);
-                    }                
+                        return GetFileSoundParameters(8, 3);
+                    }
                 case "creature3":
                     {
                         return GetFileSoundParameters(9, 7);
@@ -167,6 +169,14 @@ namespace MonsterBoxRemote.Mobile.ViewModel
                 case "creature5":
                     {
                         return GetFileSoundParameters(11, 6);
+                    }
+                case "metalhit":
+                    {
+                        return GetFileSoundParameters(12, 8);
+                    }
+                case "raven":
+                    {
+                        return GetFileSoundParameters(13, 2);
                     }
                 default:
                     {

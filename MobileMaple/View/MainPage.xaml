@@ -14,7 +14,7 @@
             <Button x:Name="btnMonsterBox" Text="MonsterBox Controller" 
                     Clicked="BtnMonsterBoxClicked" 
                     HeightRequest="60"
-                    TextColor="White" BackgroundColor="{StaticResource ButtonActive}" />            
+                    TextColor="White" BackgroundColor="{StaticResource ButtonActive}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

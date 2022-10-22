@@ -9,7 +9,7 @@
   <Identity
     Name="918f1918-ac9c-4044-82cf-2ef6a2258af1"
     Publisher="CN=Sorbitol"
-    Version="1.0.3.0" />
+    Version="1.0.5.0" />
 
   <mp:PhoneIdentity PhoneProductId="ec0cc741-fd3e-485c-81be-68815c480690" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 

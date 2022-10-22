@@ -20,7 +20,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
                 <Frame
@@ -75,14 +75,15 @@
                 </Frame>
 
                 <Frame 
-                    Grid.Row="3"
-                    HorizontalOptions="CenterAndExpand"
+                    Grid.Row="2"
+                    HorizontalOptions="FillAndExpand"
                     VerticalOptions="End"
                     BackgroundColor="#EF7D3B" HasShadow="False" CornerRadius="5" Padding="10">
                     <Grid>
                         <Grid.RowDefinitions>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
@@ -139,8 +140,30 @@
 
                         </StackLayout>
 
-                        <StackLayout 
+                        <StackLayout
                             Grid.Column="2"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="FillAndExpand"
+                            >
+                            <Button
+                            Text="Shake"
+                            Style="{StaticResource ButtonStyle}"
+                            VerticalOptions="FillAndExpand"
+                                HorizontalOptions="FillAndExpand"
+                            Command="{Binding SendCommand}" CommandParameter="shake">
+                                <Button.Triggers>
+                                    <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="false">
+                                        <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="true">
+                                        <Setter Property="BackgroundColor" Value="{StaticResource ButtonInactive}" />
+                                    </DataTrigger>
+                                </Button.Triggers>
+                            </Button>
+                        </StackLayout>
+
+                        <StackLayout 
+                            Grid.Column="3"
                             BackgroundColor="Black"
                             Padding="0,0,0,10"
                             >
@@ -165,7 +188,7 @@
                         </StackLayout>
 
                         <StackLayout 
-                            Grid.Column="3"
+                            Grid.Column="4"
                             BackgroundColor="Black"
                             Padding="0,0,0,10"
                             >
@@ -190,26 +213,10 @@
                                 />
 
                         </StackLayout>
-
-                        <Button
-                            Grid.Row="1"
-                            Grid.ColumnSpan="4"
-                            Text="Shake"
-                            Style="{StaticResource ButtonStyle}"
-                            Command="{Binding SendCommand}" CommandParameter="shake">
-                            <Button.Triggers>
-                                <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="false">
-                                    <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
-                                </DataTrigger>
-                                <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="true">
-                                    <Setter Property="BackgroundColor" Value="{StaticResource ButtonInactive}" />
-                                </DataTrigger>
-                            </Button.Triggers>
-                        </Button>
-
+                        
                         <Button 
                             Grid.Column="0"
-                            Grid.Row="2" 
+                            Grid.Row="1" 
                             Text="Werewolf"
                             Style="{StaticResource ButtonStyle}"
                             Command="{Binding SendCommand}" CommandParameter="werewolf">
@@ -225,7 +232,7 @@
 
                         <Button 
                             Grid.Column="1"
-                            Grid.Row="2"
+                            Grid.Row="1"
                             Text="Laugh"
                             Style="{StaticResource ButtonStyle}" 
                             Command="{Binding SendCommand}" CommandParameter="laugh">
@@ -241,7 +248,7 @@
 
                         <Button 
                             Grid.Column="2"
-                            Grid.Row="2" 
+                            Grid.Row="1" 
                             Text="Chains"
                             Style="{StaticResource ButtonStyle}" 
                             Command="{Binding SendCommand}" CommandParameter="chains">
@@ -257,7 +264,7 @@
 
                         <Button 
                             Grid.Column="3"
-                            Grid.Row="2" 
+                            Grid.Row="1" 
                             Text="Heartbeat"
                             Style="{StaticResource ButtonStyle}" 
                             Command="{Binding SendCommand}" CommandParameter="heartbeat">
@@ -272,8 +279,8 @@
                         </Button>
 
                         <Button 
-                            Grid.Column="0"
-                            Grid.Row="3" 
+                            Grid.Column="4"
+                            Grid.Row="1" 
                             Text="Dragongrowl"
                             Style="{StaticResource ButtonStyle}" 
                             Command="{Binding SendCommand}" CommandParameter="dragongrowl">
@@ -288,8 +295,8 @@
                         </Button>
 
                         <Button 
-                            Grid.Column="1"
-                            Grid.Row="3"
+                            Grid.Column="0"
+                            Grid.Row="2"
                             Text="Door creek"
                             Style="{StaticResource ButtonStyle}" 
                             Command="{Binding SendCommand}" CommandParameter="doorcreek">
@@ -302,9 +309,41 @@
                                 </DataTrigger>
                             </Button.Triggers>
                         </Button>
+                        
+                        <Button 
+                            Grid.Column="1"
+                            Grid.Row="2"
+                            Text="Metal Hit"
+                            Style="{StaticResource ButtonStyle}" 
+                            Command="{Binding SendCommand}" CommandParameter="metalhit">
+                            <Button.Triggers>
+                                <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="false">
+                                    <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
+                                </DataTrigger>
+                                <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="true">
+                                    <Setter Property="BackgroundColor" Value="{StaticResource ButtonInactive}" />
+                                </DataTrigger>
+                            </Button.Triggers>
+                        </Button>
 
                         <Button 
                             Grid.Column="2"
+                            Grid.Row="2"
+                            Text="Raven"
+                            Style="{StaticResource ButtonStyle}" 
+                            Command="{Binding SendCommand}" CommandParameter="raven">
+                            <Button.Triggers>
+                                <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="false">
+                                    <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
+                                </DataTrigger>
+                                <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="true">
+                                    <Setter Property="BackgroundColor" Value="{StaticResource ButtonInactive}" />
+                                </DataTrigger>
+                            </Button.Triggers>
+                        </Button>
+
+                        <Button 
+                            Grid.Column="0"
                             Grid.Row="3"
                             Text="Creature 1"
                             Style="{StaticResource ButtonStyle}" 
@@ -320,7 +359,7 @@
                         </Button>
 
                         <Button 
-                            Grid.Column="3"
+                            Grid.Column="1"
                             Grid.Row="3" 
                             Text="Creature 2"
                             Style="{StaticResource ButtonStyle}"
@@ -336,8 +375,8 @@
                         </Button>
 
                         <Button 
-                            Grid.Column="0"
-                            Grid.Row="4"
+                            Grid.Column="2"
+                            Grid.Row="3"
                             Text="Creature 3"
                             Style="{StaticResource ButtonStyle}" 
                             Command="{Binding SendCommand}" CommandParameter="creature3">
@@ -352,8 +391,8 @@
                         </Button>
 
                         <Button 
-                            Grid.Column="1"
-                            Grid.Row="4" 
+                            Grid.Column="3"
+                            Grid.Row="3" 
                             Text="Creature 4"
                             Style="{StaticResource ButtonStyle}" 
                             Command="{Binding SendCommand}" CommandParameter="creature4">
@@ -368,8 +407,8 @@
                         </Button>
 
                         <Button 
-                            Grid.Column="2"
-                            Grid.Row="4"
+                            Grid.Column="4"
+                            Grid.Row="3" 
                             Text="Creature 5"
                             Style="{StaticResource ButtonStyle}" 
                             Command="{Binding SendCommand}" CommandParameter="creature5">
