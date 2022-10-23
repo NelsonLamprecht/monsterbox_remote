@@ -159,7 +159,7 @@
                             Text="Shake"
                             Style="{StaticResource ButtonStyle}"
                             VerticalOptions="FillAndExpand"
-                                HorizontalOptions="FillAndExpand"
+                            HorizontalOptions="FillAndExpand"
                             Command="{Binding SendCommand}" CommandParameter="shake">
                                 <Button.Triggers>
                                     <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="false">
