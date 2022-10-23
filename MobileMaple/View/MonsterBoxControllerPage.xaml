@@ -16,20 +16,42 @@
 
     <ContentPage.Content>
         <Grid>
-            <Grid RowSpacing="10" Padding="10">
+            <Grid
+                BackgroundColor="#88000000"
+                IsVisible="{Binding IsBusy}"
+                >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <StackLayout Spacing="10" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Label Text="Please Wait..." TextColor="White" HorizontalOptions="Center" />
+                    <ActivityIndicator Color="White" IsRunning="True"  />
+                </StackLayout>
+            </Grid>
+            <Grid
+                RowSpacing="10"
+                Padding="10">
+                <Grid.Triggers>
+                    <DataTrigger TargetType="Grid" Binding="{Binding IsBusy}" Value="True">
+                        <Setter Property="IsEnabled" Value="False" />
+                    </DataTrigger>
+                </Grid.Triggers>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-
-                <Frame
-                    Grid.Row="0"
-                    BackgroundColor="#8929bf" HasShadow="False" CornerRadius="5" Padding="10,0,0,0">
+                <Frame 
+                    Grid.Row="1"
+                    BackgroundColor="#8929bf" HasShadow="False" CornerRadius="5" Padding="10">
                     <Grid>
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
                             <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="2*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
                         <Grid Grid.Column="0">
@@ -37,40 +59,28 @@
                                 ItemsSource="{Binding HostList}" ItemDisplayBinding="{Binding Name}" SelectedItem="{Binding SelectedServer}"/>
                             <Label IsVisible="{Binding IsServerListEmpty}" Text="Pick a server" 
                                 FontSize="Medium" TextColor="White" VerticalOptions="Center" />
+
                         </Grid>
 
-                        <Grid Grid.Column="1" WidthRequest="50" HeightRequest="50">
+                        <Grid Grid.Column="0" WidthRequest="50" HeightRequest="50" HorizontalOptions="End">
                             <Button Command="{Binding SearchServersCommand}" BackgroundColor="Transparent" CornerRadius="5" />
-                            <Image Source="icon_search.png" Margin="10" InputTransparent="True" />
+                            <Image Source="icon_search.png" Margin="5" InputTransparent="True" />
                         </Grid>
-                    </Grid>
-                </Frame>
 
-                <Frame 
-                    Grid.Row="1"
-                    BackgroundColor="#EF7D3B" HasShadow="False" CornerRadius="5" Padding="10">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="2*" />
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-
-                        <Label Grid.Column="0" 
+                        <Label Grid.Column="1" 
                                Text="IP:" FontSize="Medium"  FontAttributes="Bold"
                                VerticalOptions="Center"
                                Style="{StaticResource LabelStyle}"/>
 
-                        <Entry Grid.Column="1"
+                        <Entry Grid.Column="2"
                                Text="{Binding SelectedServer.IpAddress}" TextColor="White" FontSize="Medium"
-                               BackgroundColor="#AB5D30" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
+                               BackgroundColor="#8929bf" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"
                                />
 
-                        <Label Grid.Column="2" Text="Port:" FontSize="Medium" FontAttributes="Bold" VerticalOptions="Center" Style="{StaticResource LabelStyle}"  />
+                        <Label Grid.Column="3" Text="Port:" FontSize="Medium" FontAttributes="Bold" VerticalOptions="Center" Style="{StaticResource LabelStyle}"  />
 
-                        <Entry Grid.Column="3" Text="{Binding ServerPort}" TextColor="White" FontSize="Medium" Keyboard="Numeric"
-                            BackgroundColor="#AB5D30" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                        <Entry Grid.Column="4" Text="{Binding ServerPort}" TextColor="White" FontSize="Medium" Keyboard="Numeric"
+                            BackgroundColor="#8929bf" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
                     </Grid>
                 </Frame>
 
@@ -213,7 +223,7 @@
                                 />
 
                         </StackLayout>
-                        
+
                         <Button 
                             Grid.Column="0"
                             Grid.Row="1" 
@@ -309,7 +319,7 @@
                                 </DataTrigger>
                             </Button.Triggers>
                         </Button>
-                        
+
                         <Button 
                             Grid.Column="1"
                             Grid.Row="2"
@@ -425,12 +435,6 @@
                     </Grid>
                 </Frame>
 
-                <Grid IsVisible="{Binding IsBusy}" BackgroundColor="#88000000">
-                    <StackLayout Spacing="10" HorizontalOptions="Center" VerticalOptions="Center">
-                        <Label Text="Please Wait..." TextColor="White" HorizontalOptions="Center" />
-                        <ActivityIndicator Color="White" IsRunning="True"  />
-                    </StackLayout>
-                </Grid>
             </Grid>
         </Grid>
     </ContentPage.Content>
