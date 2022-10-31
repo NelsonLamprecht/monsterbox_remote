@@ -44,29 +44,29 @@ namespace MonsterBoxRemote.Mobile.ViewModel
             set { ipAddress = value; OnPropertyChanged(nameof(IpAddress)); }
         }
 
-        ServerModel _selectedServer;
-        public ServerModel SelectedServer
-        {
-            get => _selectedServer;
-            set
-            {
-                if (value == null) return;
-                _selectedServer = value;
-                IpAddress = _selectedServer.IpAddress;
-                OnPropertyChanged(nameof(SelectedServer));
-            }
-        }
-
         public ObservableCollection<ServerModel> HostList { get; set; }
 
-        public Command SendCommand { set; get; }
+        public ObservableCollection<PageModel> PageList { get; set; }
 
         public Command SearchServersCommand { set; get; }
 
         public BaseViewModel()
         {
             HostList = new ObservableCollection<ServerModel>();
+            PageList = new ObservableCollection<PageModel>();
+
+            // TODO: Dynamic!
+            PageList.Add(new PageModel()
+            {
+                Name = "Controller Page"
+            });
+            PageList.Add(new PageModel()
+            {
+                Name = "Options Page"
+            });
+
             //HostList.Add(new ServerModel() { Name="Meadow (192.168.1.73)", IpAddress="192.168.1.73" });
+            //HostList.Add(new ServerModel() { Name = "Meadow (192.168.1.74)", IpAddress = "192.168.1.74" });
 
             ServerPort = 5417;
 
@@ -96,11 +96,11 @@ namespace MonsterBoxRemote.Mobile.ViewModel
                 if (HostList.Count == 0)
                 {
                     IsServerListEmpty = true;
+
                 }
                 else
                 {
                     IsServerListEmpty = false;
-                    SelectedServer = HostList[0];
                 }
             }
             catch (Exception ex)

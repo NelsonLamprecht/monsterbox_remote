@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Meadow.Foundation.Web.Maple.Client;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -37,15 +38,24 @@ namespace MonsterBoxRemote.Mobile.ViewModel
             set { _endDelay = value; OnPropertyChanged(nameof(EndDelay)); }
         }
 
+        public ServerModel MonsterBoxDevice { get; internal set; }
+
+        public ServerModel ScareCrowDevice { get; internal set; }
+
+        public Command SendMonsterBoxCommand { set; get; }
+
+        public Command SendScarecrowCommand { set; get; }
+
         public MonsterBoxControllerViewModel() : base()
         {
             IsBusy = false;
-            SendCommand = new Command(async (obj) => await SendMeadowCommand(obj as string));
+            SendMonsterBoxCommand = new Command(async (obj) => await SendMeadowCommand(MonsterBoxDevice?.IpAddress, obj as string));
+            SendScarecrowCommand = new Command(async (obj) => await SendMeadowCommand(ScareCrowDevice?.IpAddress, obj as string));
         }
 
-        async Task SendMeadowCommand(string command)
+        async Task SendMeadowCommand(string hostAddress, string command)
         {
-            if (IsBusy || SelectedServer == null)
+            if (IsBusy || string.IsNullOrEmpty(hostAddress) || string.IsNullOrEmpty(command))
             {
                 return;
             }
@@ -67,7 +77,7 @@ namespace MonsterBoxRemote.Mobile.ViewModel
                                 ["ed"] = EndDelay.ToString(),
                             };
                             var complexCommand = RequestUriUtil.GetUriWithQueryString(command, query).ToLower();
-                            response = await PostHttpDataWithCommand(complexCommand);
+                            response = await PostHttpDataWithCommand(hostAddress,complexCommand);
                             break;
                         }
                     case "werewolf":
@@ -88,7 +98,7 @@ namespace MonsterBoxRemote.Mobile.ViewModel
                             if (query != null)
                             {
                                 var complexCommand = RequestUriUtil.GetUriWithQueryString("sound", query).ToLower();
-                                response = await PostHttpDataWithCommand(complexCommand);
+                                response = await PostHttpDataWithCommand(hostAddress,complexCommand);
                             }
                             else
                             {
@@ -98,7 +108,7 @@ namespace MonsterBoxRemote.Mobile.ViewModel
                         }
                     default:
                         {
-                            response = await PostHttpDataWithCommand(command);
+                            response = await PostHttpDataWithCommand(hostAddress,command);
                             break;
                         }
                 }
@@ -132,7 +142,7 @@ namespace MonsterBoxRemote.Mobile.ViewModel
                     }
                 case "laugh":
                     {
-                        return GetFileSoundParameters(2,3);
+                        return GetFileSoundParameters(2,2);
                     }
                 case "chains":
                     {
@@ -185,13 +195,11 @@ namespace MonsterBoxRemote.Mobile.ViewModel
             }
         }
 
-        private async Task<bool> PostHttpDataWithCommand(string command)
+        private async Task<bool> PostHttpDataWithCommand(string hostAddress, string command)
         {
             bool response;
-
-            Debug.WriteLine($"{SelectedServer?.IpAddress}, {ServerPort}, {command}, {string.Empty}");
             
-            response = await client.PostAsync(SelectedServer.IpAddress, ServerPort, command, string.Empty);
+            response = await client.PostAsync(hostAddress, ServerPort, command, string.Empty);
 
             return response;
         }

@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+    xmlns:viewmodel="clr-namespace:MonsterBoxRemote.Mobile.ViewModel"
+    x:DataType="viewmodel:MonsterBoxControllerViewModel"
+    ios:Page.UseSafeArea="true"
+    x:Class="MonsterBoxRemote.Mobile.View.MonsterBoxOptionsPage"
+    BackgroundColor="#2bd011"  
+    
+    Title="MonsterBox Options">
+    <ContentPage.BindingContext>
+        <viewmodel:MonsterBoxControllerViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <Grid>
+            <Grid
+                BackgroundColor="#88000000"
+                IsVisible="{Binding IsBusy}"
+                >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <StackLayout Spacing="10" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Label Text="Please Wait..." TextColor="White" HorizontalOptions="Center" />
+                    <ActivityIndicator Color="White" IsRunning="True" />
+                </StackLayout>
+            </Grid>
+            
+            <Grid
+                RowSpacing="10"
+                Padding="10">
+                <Grid.Triggers>
+                    <DataTrigger TargetType="Grid" Binding="{Binding IsBusy}" Value="True">
+                        <Setter Property="IsEnabled" Value="False" />
+                    </DataTrigger>
+                </Grid.Triggers>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Frame 
+                    Grid.Row="0"
+                    BackgroundColor="#8929bf" HasShadow="False" CornerRadius="5" Padding="10">
+                    <Picker TextColor="White" FontSize="Medium" BackgroundColor="{StaticResource ButtonActive}"
+                            ItemsSource="{Binding PageList}" ItemDisplayBinding="{Binding Name}"
+                            SelectedIndexChanged="PagePicker_SelectedIndexChanged"
+                    />
+                </Frame>
+                <Frame 
+                    Grid.Row="2"
+                    HorizontalOptions="FillAndExpand"
+                    VerticalOptions="EndAndExpand"
+                    BackgroundColor="#EF7D3B" HasShadow="False" CornerRadius="5" Padding="10">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <StackLayout
+                            Grid.Column="0"
+                            BackgroundColor="Black"
+                            Padding="0,0,0,10"
+                            >
+
+                            <Label
+                                Text="Begin Iterations"
+                                FontSize="Medium" Style="{StaticResource LabelStyle}" />
+
+                            <Label
+                                Text="{Binding BeginIterations}"
+                                FontSize="Medium" Style="{StaticResource LabelStyle}" />
+
+                            <Stepper
+                                Minimum="0"
+                                Maximum="100"
+                                Increment="5"
+                                Value="{Binding BeginIterations}" 
+                                ValueChanged="BeginIterationsStepper_ValueChanged"
+                                Style="{StaticResource StepperStyle}"
+                                />
+
+                        </StackLayout>
+
+                        <StackLayout 
+                            Grid.Column="1"
+                            BackgroundColor="Black"
+                            Padding="0,0,0,10"
+                            >
+
+                            <Label
+                                Text="End Iterations"
+                                FontSize="Medium" Style="{StaticResource LabelStyle}" />
+
+                            <Label
+                                Text="{Binding EndIterations}" 
+                                FontSize="Medium" Style="{StaticResource LabelStyle}" />
+
+                            <Stepper 
+                                Minimum="0"
+                                Maximum="100"
+                                Increment="5"
+                                Value="{Binding EndIterations}" 
+                                ValueChanged="EndIterationsStepper_ValueChanged"
+                                Style="{StaticResource StepperStyle}"
+                                />
+
+                        </StackLayout>
+                        
+                        <StackLayout 
+                            Grid.Column="3"
+                            BackgroundColor="Black"
+                            Padding="0,0,0,10"
+                            >
+
+                            <Label
+                                Text="Begin Delay"
+                                FontSize="Medium" Style="{StaticResource LabelStyle}" />
+
+                            <Label
+                                Text="{Binding BeginDelay}" 
+                                FontSize="Medium" Style="{StaticResource LabelStyle}" />
+
+                            <Stepper 
+                                Minimum="0"
+                                Maximum="100"
+                                Increment="5"
+                                Value="{Binding BeginDelay}" 
+                                ValueChanged="BeginDelayStepper_ValueChanged"
+                                Style="{StaticResource StepperStyle}"
+                                />
+
+                        </StackLayout>
+
+                        <StackLayout 
+                            Grid.Column="4"
+                            BackgroundColor="Black"
+                            Padding="0,0,0,10"
+                            >
+
+                            <Label
+                                Text="End Delay"
+                                FontSize="Medium"
+                                Style="{StaticResource LabelStyle}" />
+
+                            <Label
+                                Text="{Binding EndDelay}" 
+                                FontSize="Medium"
+                                Style="{StaticResource LabelStyle}" />
+
+                            <Stepper 
+                                Minimum="0"
+                                Maximum="100"
+                                Increment="5"
+                                Value="{Binding EndDelay}" 
+                                ValueChanged="EndDelayStepper_ValueChanged"
+                                Style="{StaticResource StepperStyle}"
+                                />
+                            
+                        </StackLayout>
+
+                    </Grid>
+                </Frame>
+
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

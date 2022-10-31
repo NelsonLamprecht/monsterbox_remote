@@ -8,7 +8,7 @@ namespace MonsterBoxRemote.Mobile.View
         public MainPage()
         {
             InitializeComponent();
-            NavigationPage.SetBackButtonTitle(this, "Back");            
+            NavigationPage.SetBackButtonTitle(this, "Back");
         }
 
         void BtnMonsterBoxClicked(object sender, EventArgs e)

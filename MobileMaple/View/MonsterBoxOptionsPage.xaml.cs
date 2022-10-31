@@ -3,27 +3,24 @@
 using Xamarin.Forms;
 
 using MonsterBoxRemote.Mobile.ViewModel;
-using System;
-using Meadow.Foundation.Web.Maple.Client;
 
 namespace MonsterBoxRemote.Mobile.View
 {
-    public partial class MonsterBoxControllerPage : ContentPage
+    public partial class MonsterBoxOptionsPage : ContentPage
     {
         private MonsterBoxControllerViewModel ViewModel { get; }
 
-        public MonsterBoxControllerPage()
+        public MonsterBoxOptionsPage()
         {
             InitializeComponent();
             BindingContext = new MonsterBoxControllerViewModel();
             ViewModel = BindingContext as MonsterBoxControllerViewModel;
         }
 
-        protected override async void OnAppearing()
+        protected override void OnAppearing()
         {
             base.OnAppearing();
-            await ViewModel.GetServers();
-        }    
+        }
 
         private void BeginIterationsStepper_ValueChanged(object sender, ValueChangedEventArgs e)
         {
@@ -70,13 +67,14 @@ namespace MonsterBoxRemote.Mobile.View
                 {
                     ViewModel.EndDelay = value;
                 }
-            }            
+            }
         }
 
         private void PagePicker_SelectedIndexChanged(object sender, System.EventArgs e)
         {
             var picker = (Picker)sender;
-            if (picker.SelectedItem is PageModel selectedItem)
+            var selectedItem = picker.SelectedItem as PageModel;
+            if (selectedItem != null)
             {
                 switch (selectedItem.Name)
                 {
@@ -91,24 +89,6 @@ namespace MonsterBoxRemote.Mobile.View
                             break;
                         }
                 }
-            }
-        }
-
-        private void PickerMonsterBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            var picker = (Picker)sender;
-            if (picker.SelectedItem is ServerModel selectedItem)
-            {
-                ViewModel.MonsterBoxDevice = selectedItem;
-            }
-        }
-
-        private void PickerScareCrow_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            var picker = (Picker)sender;
-            if (picker.SelectedItem is ServerModel selectedItem)
-            {
-                ViewModel.ScareCrowDevice = selectedItem;
             }
         }
     }
