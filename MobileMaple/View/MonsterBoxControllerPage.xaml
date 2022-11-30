@@ -1,0 +1,378 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core" 
+    xmlns:viewmodel="clr-namespace:MonsterBoxRemote.Mobile.ViewModel"
+    x:DataType="viewmodel:MonsterBoxControllerViewModel"
+    ios:Page.UseSafeArea="true"
+    x:Class="MonsterBoxRemote.Mobile.View.MonsterBoxControllerPage"
+    BackgroundColor="#2bd011"
+    Title="MonsterBox Controller">
+    <ContentPage.BindingContext>
+        <viewmodel:MonsterBoxControllerViewModel />
+    </ContentPage.BindingContext>
+
+    <ContentPage.Content>
+        <Grid>
+            <Grid
+                BackgroundColor="#88000000"
+                IsVisible="{Binding IsBusy}"
+                >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <StackLayout Spacing="10" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Label Text="Please Wait..." TextColor="White" HorizontalOptions="Center" />
+                    <ActivityIndicator Color="White" IsRunning="True"  />
+                </StackLayout>
+            </Grid>
+
+            <Grid
+                RowSpacing="10"
+                Padding="10">
+                <Grid.Triggers>
+                    <DataTrigger TargetType="Grid" Binding="{Binding IsBusy}" Value="True">
+                        <Setter Property="IsEnabled" Value="False" />
+                    </DataTrigger>
+                </Grid.Triggers>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Frame 
+                    Grid.Row="0"
+                    Grid.RowSpan="1"
+                    Grid.ColumnSpan="2"
+                    BackgroundColor="#8929bf" HasShadow="False" CornerRadius="5" Padding="10">
+                    <Picker TextColor="White" FontSize="Medium" BackgroundColor="{StaticResource ButtonActive}"
+                            ItemsSource="{Binding PageList}" ItemDisplayBinding="{Binding Name}"
+                            SelectedIndexChanged="PagePicker_SelectedIndexChanged"
+                            />
+                </Frame>
+                <!--Left Column-->
+                <!--Keep this fill and expand for surface...-->
+                <Frame
+                    Grid.Column="0"
+                    Grid.Row="1"
+                    VerticalOptions="FillAndExpand"
+                    BackgroundColor="#EF7D3B" HasShadow="False" CornerRadius="5" Padding="10">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackLayout
+                            Grid.Column="0"
+                            Grid.Row="0"
+                            Grid.ColumnSpan="5">
+                            <Picker
+                                TextColor="White" FontSize="Medium" BackgroundColor="{StaticResource ButtonActive}"
+                                ItemsSource="{Binding HostList}" ItemDisplayBinding="{Binding Name}"
+                                SelectedIndexChanged="PickerMonsterBox_SelectedIndexChanged"
+                            />
+                            <Grid>
+                                <Button
+                                    Grid.Row="0"
+                                    Grid.ColumnSpan="5"
+                                    Text="Shake"
+                                    Style="{StaticResource ButtonStyle}"
+                                    VerticalOptions="FillAndExpand"
+                                    HorizontalOptions="FillAndExpand"
+                                    Command="{Binding SendMonsterBoxCommand}" CommandParameter="shake">
+                                    <Button.Triggers>
+                                        <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="false">
+                                            <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="true">
+                                            <Setter Property="BackgroundColor" Value="{StaticResource ButtonInactive}" />
+                                        </DataTrigger>
+                                    </Button.Triggers>
+                                </Button>
+                                <Button
+                                    Grid.Row="1" 
+                                    Grid.Column="0"
+                                    Text="Werewolf"
+                                    Style="{StaticResource ButtonStyle}"
+                                    Command="{Binding SendMonsterBoxCommand}" CommandParameter="werewolf">
+                                    <Button.Triggers>
+                                        <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="false">
+                                            <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="true">
+                                            <Setter Property="BackgroundColor" Value="{StaticResource ButtonInactive}" />
+                                        </DataTrigger>
+                                    </Button.Triggers>
+                                </Button>
+                                <Button 
+                                    Grid.Column="1"
+                                    Grid.Row="1"
+                                    Text="Laugh"
+                                    Style="{StaticResource ButtonStyle}" 
+                                    Command="{Binding SendMonsterBoxCommand}" CommandParameter="laugh">
+                                    <Button.Triggers>
+                                        <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="false">
+                                            <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="true">
+                                            <Setter Property="BackgroundColor" Value="{StaticResource ButtonInactive}" />
+                                        </DataTrigger>
+                                    </Button.Triggers>
+                                </Button>
+                                <Button 
+                                    Grid.Column="2"
+                                    Grid.Row="1" 
+                                    Text="Chains"
+                                    Style="{StaticResource ButtonStyle}" 
+                                    Command="{Binding SendMonsterBoxCommand}" CommandParameter="chains">
+                                    <Button.Triggers>
+                                        <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="false">
+                                            <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="true">
+                                            <Setter Property="BackgroundColor" Value="{StaticResource ButtonInactive}" />
+                                        </DataTrigger>
+                                    </Button.Triggers>
+                                </Button>
+                                <Button
+                                    Grid.Column="3"
+                                    Grid.Row="1" 
+                                    Text="Heartbeat"
+                                    Style="{StaticResource ButtonStyle}" 
+                                    Command="{Binding SendMonsterBoxCommand}" CommandParameter="heartbeat">
+                                            <Button.Triggers>
+                                                <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="false">
+                                                    <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
+                                                </DataTrigger>
+                                                <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="true">
+                                                    <Setter Property="BackgroundColor" Value="{StaticResource ButtonInactive}" />
+                                                </DataTrigger>
+                                            </Button.Triggers>
+                                </Button>
+                                <Button
+                                    Grid.Column="4"
+                                    Grid.Row="1" 
+                                    Text="Dragongrowl"
+                                    Style="{StaticResource ButtonStyle}" 
+                                    Command="{Binding SendMonsterBoxCommand}" CommandParameter="dragongrowl">
+                                            <Button.Triggers>
+                                                <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="false">
+                                                    <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
+                                                </DataTrigger>
+                                                <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="true">
+                                                    <Setter Property="BackgroundColor" Value="{StaticResource ButtonInactive}" />
+                                                </DataTrigger>
+                                            </Button.Triggers>
+                                        </Button>
+                                <Button 
+                                    Grid.Column="0"
+                                    Grid.Row="2"
+                                    Text="Door creek"
+                                    Style="{StaticResource ButtonStyle}" 
+                                    Command="{Binding SendMonsterBoxCommand}" CommandParameter="doorcreek">
+                                            <Button.Triggers>
+                                                <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="false">
+                                                    <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
+                                                </DataTrigger>
+                                                <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="true">
+                                                    <Setter Property="BackgroundColor" Value="{StaticResource ButtonInactive}" />
+                                                </DataTrigger>
+                                            </Button.Triggers>
+                                        </Button>
+                                <Button 
+                                    Grid.Column="1"
+                                    Grid.Row="2"
+                                    Text="Metal Hit"
+                                    Style="{StaticResource ButtonStyle}" 
+                                    Command="{Binding SendMonsterBoxCommand}" CommandParameter="metalhit">
+                                        <Button.Triggers>
+                                            <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="false">
+                                                <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
+                                            </DataTrigger>
+                                            <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="true">
+                                                <Setter Property="BackgroundColor" Value="{StaticResource ButtonInactive}" />
+                                            </DataTrigger>
+                                        </Button.Triggers>
+                                    </Button>
+                                <Button 
+                                    Grid.Column="2"
+                                    Grid.Row="2"
+                                    Text="Raven"
+                                    Style="{StaticResource ButtonStyle}" 
+                                    Command="{Binding SendMonsterBoxCommand}" CommandParameter="raven">
+                                            <Button.Triggers>
+                                                <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="false">
+                                                    <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
+                                                </DataTrigger>
+                                                <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="true">
+                                                    <Setter Property="BackgroundColor" Value="{StaticResource ButtonInactive}" />
+                                                </DataTrigger>
+                                            </Button.Triggers>
+                                        </Button>
+                                <Button 
+                                    Grid.Column="0"
+                                    Grid.Row="3"
+                                    Text="Creature 1"
+                                    Style="{StaticResource ButtonStyle}" 
+                                    Command="{Binding SendMonsterBoxCommand}" CommandParameter="creature1">
+                                            <Button.Triggers>
+                                                <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="false">
+                                                    <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
+                                                </DataTrigger>
+                                                <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="true">
+                                                    <Setter Property="BackgroundColor" Value="{StaticResource ButtonInactive}" />
+                                                </DataTrigger>
+                                            </Button.Triggers>
+                                        </Button>
+                                <Button 
+                                    Grid.Column="1"
+                                    Grid.Row="3" 
+                                    Text="Creature 2"
+                                    Style="{StaticResource ButtonStyle}"
+                                    Command="{Binding SendMonsterBoxCommand}" CommandParameter="creature2">
+                                            <Button.Triggers>
+                                                <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="false">
+                                                    <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
+                                                </DataTrigger>
+                                                <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="true">
+                                                    <Setter Property="BackgroundColor" Value="{StaticResource ButtonInactive}" />
+                                                </DataTrigger>
+                                            </Button.Triggers>
+                                        </Button>
+                                <Button 
+                                    Grid.Column="2"
+                                    Grid.Row="3"
+                                    Text="Creature 3"
+                                    Style="{StaticResource ButtonStyle}" 
+                                    Command="{Binding SendMonsterBoxCommand}" CommandParameter="creature3">
+                                            <Button.Triggers>
+                                                <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="false">
+                                                    <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
+                                                </DataTrigger>
+                                                <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="true">
+                                                    <Setter Property="BackgroundColor" Value="{StaticResource ButtonInactive}" />
+                                                </DataTrigger>
+                                            </Button.Triggers>
+                                        </Button>
+                                <Button 
+                                    Grid.Column="3"
+                                    Grid.Row="3" 
+                                    Text="Creature 4"
+                                    Style="{StaticResource ButtonStyle}" 
+                                    Command="{Binding SendMonsterBoxCommand}" CommandParameter="creature4">
+                                            <Button.Triggers>
+                                                <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="false">
+                                                    <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
+                                                </DataTrigger>
+                                                <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="true">
+                                                    <Setter Property="BackgroundColor" Value="{StaticResource ButtonInactive}" />
+                                                </DataTrigger>
+                                            </Button.Triggers>
+                                        </Button>
+                                <Button 
+                                    Grid.Column="4"
+                                    Grid.Row="3" 
+                                    Text="Creature 5"
+                                    Style="{StaticResource ButtonStyle}" 
+                                    Command="{Binding SendMonsterBoxCommand}" CommandParameter="creature5">
+                                    <Button.Triggers>
+                                        <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="false">
+                                            <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="true">
+                                            <Setter Property="BackgroundColor" Value="{StaticResource ButtonInactive}" />
+                                        </DataTrigger>
+                                    </Button.Triggers>
+                                </Button>
+                            </Grid>
+                        </StackLayout>
+                    </Grid>
+                </Frame>
+                <!--Keep this fill and expand for surface...-->
+                <!--Right Column-->
+                <Frame 
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    VerticalOptions="FillAndExpand"
+                    BackgroundColor="#EF7D3B" HasShadow="False" CornerRadius="5" Padding="10">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <StackLayout
+                            Grid.Column="0"
+                            Grid.Row="0"
+                            Grid.ColumnSpan="5"
+                            >
+                            <Picker
+                                TextColor="White" FontSize="Medium" BackgroundColor="{StaticResource ButtonActive}"
+                                ItemsSource="{Binding HostList}" ItemDisplayBinding="{Binding Name}"
+                                SelectedIndexChanged="PickerScareCrow_SelectedIndexChanged"
+                            />
+                            <Grid>
+                                <Button
+                                    Grid.Column="0"
+                                    Grid.Row="0"
+                                    Grid.RowSpan="1"
+                                    Text="Up"
+                                    Style="{StaticResource ButtonStyle}"
+                                    Command="{Binding SendScarecrowCommand}" CommandParameter="up">
+                                    <Button.Triggers>
+                                        <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="false">
+                                            <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="true">
+                                            <Setter Property="BackgroundColor" Value="{StaticResource ButtonInactive}" />
+                                        </DataTrigger>
+                                    </Button.Triggers>
+                                </Button>
+                                <Button
+                                    Grid.Column="1"
+                                    Grid.Row="0"
+                                    Grid.RowSpan="1"
+                                    Text="Down"
+                                    Style="{StaticResource ButtonStyle}"
+                                    Command="{Binding SendScarecrowCommand}" CommandParameter="down">
+                                    <Button.Triggers>
+                                        <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="false">
+                                            <Setter Property="BackgroundColor" Value="{StaticResource ButtonActive}" />
+                                        </DataTrigger>
+                                        <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="true">
+                                            <Setter Property="BackgroundColor" Value="{StaticResource ButtonInactive}" />
+                                        </DataTrigger>
+                                    </Button.Triggers>  
+                                </Button>
+                            </Grid>
+                        </StackLayout>
+                    </Grid>
+                </Frame>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
