@@ -1,10 +1,10 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 
 using Xamarin.Forms;
 
+using Meadow.Foundation.Web.Maple;
 using MonsterBoxRemote.Mobile.ViewModel;
-using System;
-using Meadow.Foundation.Web.Maple.Client;
 
 namespace MonsterBoxRemote.Mobile.View
 {

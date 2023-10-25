@@ -6,13 +6,13 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
-using Meadow.Foundation.Web.Maple.Client;
+using Meadow.Foundation.Web.Maple;
 
 namespace MonsterBoxRemote.Mobile.ViewModel
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        private const int MapleClientListenTimeout = 10000;
+        private readonly TimeSpan MapleClientListenTimeout = TimeSpan.FromSeconds(30);
 
         public MapleClient client { get; private set; }
         
@@ -70,10 +70,9 @@ namespace MonsterBoxRemote.Mobile.ViewModel
 
             ServerPort = 5417;
 
-            client = new MapleClient
-            {
-                ListenTimeout = MapleClientListenTimeout
-            };
+            client = new MapleClient(listenTimeout: MapleClientListenTimeout);
+            
+
             client.Servers.CollectionChanged += ServersCollectionChanged;
 
             SearchServersCommand = new Command(async () => await GetServers());
