@@ -128,7 +128,7 @@ namespace MonsterBoxRemote.Mobile.ViewModel
                     foreach (ServerModel server in e.NewItems)
                     {
                         HostList.Add(new ServerModel() { Name = $"{server.Name} ({server.IpAddress})", IpAddress = server.IpAddress });
-                        Console.WriteLine($"'{server.Name}' @ ip:[{server.IpAddress}]");
+
                     }
                     break;
             }
