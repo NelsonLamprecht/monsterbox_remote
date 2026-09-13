@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
+using Microsoft.Maui.ApplicationModel;
 using Microsoft.Maui.Controls;
 using Meadow.Foundation.Web.Maple;
 
@@ -92,15 +93,12 @@ namespace MonsterBoxRemote.Maui.ViewModel
 
                 await client.StartScanningForAdvertisingServers();
 
-                if (HostList.Count == 0)
+                // Same off-thread-continuation risk as ServersCollectionChanged above -
+                // don't assume this resumes on the UI thread.
+                await MainThread.InvokeOnMainThreadAsync(() =>
                 {
-                    IsServerListEmpty = true;
-
-                }
-                else
-                {
-                    IsServerListEmpty = false;
-                }
+                    IsServerListEmpty = HostList.Count == 0;
+                });
             }
             catch (Exception ex)
             {
@@ -108,7 +106,7 @@ namespace MonsterBoxRemote.Maui.ViewModel
             }
             finally
             {
-                IsBusy = false;
+                await MainThread.InvokeOnMainThreadAsync(() => IsBusy = false);
             }
         }
 
@@ -127,8 +125,15 @@ namespace MonsterBoxRemote.Maui.ViewModel
                 case NotifyCollectionChangedAction.Add:
                     foreach (ServerModel server in e.NewItems)
                     {
-                        HostList.Add(new ServerModel() { Name = $"{server.Name} ({server.IpAddress})", IpAddress = server.IpAddress });
                         Console.WriteLine($"'{server.Name}' @ ip:[{server.IpAddress}]");
+
+                        // MapleClient raises this from its UDP listener thread, not the UI
+                        // thread. Android/iOS tolerate an off-thread ObservableCollection
+                        // mutation; WinUI3 hard-crashes on it (native 0xc000027b in
+                        // Microsoft.UI.Xaml.dll), so this must be marshaled back to the
+                        // main thread before touching HostList.
+                        var discovered = new ServerModel { Name = $"{server.Name} ({server.IpAddress})", IpAddress = server.IpAddress };
+                        MainThread.BeginInvokeOnMainThread(() => HostList.Add(discovered));
                     }
                     break;
             }

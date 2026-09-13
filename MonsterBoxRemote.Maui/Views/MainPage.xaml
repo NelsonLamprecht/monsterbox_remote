@@ -4,16 +4,16 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="MonsterBoxRemote.Maui.Views.MainPage"
     Title="Servers"
-    BackgroundColor="#2bd011"
+    BackgroundColor="{AppThemeBinding Light={StaticResource SpookyGreenLight}, Dark={StaticResource SpookyGreenDark}}"
     >
     <ContentPage.Content>
         <StackLayout Padding="20" Spacing="10">
-            <Label Text="Select an activity:" TextColor="Black" FontSize="Medium" Margin="0,0,0,10" />
+            <Label Text="Select an activity:" TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" FontSize="Medium" Margin="0,0,0,10" />
 
             <Button x:Name="btnMonsterBox" Text="MonsterBox Controller"
                     Clicked="BtnMonsterBoxClicked"
                     HeightRequest="60"
-                    TextColor="White" BackgroundColor="{StaticResource ButtonActive}" />
+                    TextColor="White" BackgroundColor="{AppThemeBinding Light={StaticResource SpookyPurpleLight}, Dark={StaticResource SpookyPurpleDark}}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

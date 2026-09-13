@@ -5,7 +5,7 @@ using MonsterBoxRemote.Maui.Views;
 
 namespace MonsterBoxRemote.Maui;
 
-public static class MauiProgram
+public static partial class MauiProgram
 {
 	public static MauiApp CreateMauiApp()
 	{
@@ -18,9 +18,9 @@ public static class MauiProgram
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
 			});
 
-#if ANDROID
-		RegisterAndroidHandlers(builder);
-#endif
+		// Implemented once per Platforms/<X>/ folder (see MauiProgram.Android.cs);
+		// a no-op on platforms that don't need a handler customization.
+		RegisterPlatformHandlers(builder);
 
 		// Shared view model instance across Controller/Options pages so selected
 		// devices and stepper values survive navigation between the two pages.
@@ -37,22 +37,5 @@ public static class MauiProgram
 		return builder.Build();
 	}
 
-#if ANDROID
-	private static void RegisterAndroidHandlers(MauiAppBuilder builder)
-	{
-		builder.ConfigureMauiHandlers(handlers =>
-		{
-			Microsoft.Maui.Handlers.PickerHandler.Mapper.AppendToMapping("StylelessPicker", (handler, view) =>
-			{
-				var control = handler.PlatformView;
-				control.Background = null;
-
-				var layoutParams = new Android.Views.ViewGroup.MarginLayoutParams(control.LayoutParameters);
-				layoutParams.SetMargins(0, 0, 0, 0);
-				control.LayoutParameters = layoutParams;
-				control.SetPadding(0, 0, 0, 0);
-			});
-		});
-	}
-#endif
+	static partial void RegisterPlatformHandlers(MauiAppBuilder builder);
 }

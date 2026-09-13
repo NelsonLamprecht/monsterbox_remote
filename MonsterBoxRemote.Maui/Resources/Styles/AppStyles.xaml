@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!-- This app's own design language, ported from the original MobileMaple
+         App.xaml. Kept separate from Styles.xaml (MAUI's scaffold defaults for
+         controls this app doesn't use) so it's obvious at a glance what's
+         actually load-bearing here. -->
+
+    <!-- IMPORTANT: do not declare {AppThemeBinding}/{OnAppTheme} as a standalone
+         keyed resource (e.g. <AppThemeBinding x:Key="Foo" .../>) anywhere in this
+         app. It compiles and works fine on Android, but reliably fail-fast
+         crashes WinUI3/Windows (0xc000027b in Microsoft.UI.Xaml.dll) - isolated
+         and confirmed with a minimal repro (a completely stock `dotnet new maui`
+         app crashes identically the moment one such resource is added, even
+         with zero other custom code). Always apply {AppThemeBinding} inline -
+         directly on a property, or inside a <Style><Setter .../></Style> - which
+         is the pattern MAUI's own scaffold Styles.xaml uses throughout and is
+         confirmed safe. The raw Light/Dark Color pairs below (in Colors.xaml)
+         are fine as plain keyed resources; it's only the AppThemeBinding/
+         OnAppTheme wrapper itself that must never be a standalone resource. -->
+
+    <Style x:Key="ButtonStyle" TargetType="Button">
+        <!-- White (not black) text: black-on-purple/gray measured ~3.1:1 and
+             ~2.8:1 against WCAG AA's 4.5:1 minimum for normal text. White gets
+             both states comfortably above 6.5:1. -->
+        <Setter Property="TextColor" Value="White" />
+        <Setter Property="FontSize" Value="Medium"/>
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="CornerRadius" Value="5" />
+        <Setter Property="Padding" Value="20" />
+        <!-- Restores the touch-target floor (Material 48dp / HIG 44pt) that's
+             lost because this named style fully replaces Styles.xaml's implicit
+             Button style (styles don't merge) rather than just extending it. -->
+        <Setter Property="MinimumHeightRequest" Value="48" />
+        <Setter Property="MinimumWidthRequest" Value="48" />
+        <!-- Default (not busy) background. -->
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource SpookyPurpleLight}, Dark={StaticResource SpookyPurpleDark}}" />
+        <!-- Centralizes what used to be a pair of <Button.Triggers> DataTriggers
+             repeated on every single button in MonsterBoxControllerPage.xaml -
+             one definition here instead of ~14 copies. -->
+        <Style.Triggers>
+            <DataTrigger TargetType="Button" Binding="{Binding IsBusy}" Value="True">
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource ButtonInactiveLight}, Dark={StaticResource ButtonInactiveDark}}" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="LabelStyle" TargetType="Label">
+        <Setter Property="TextColor" Value="White"/>
+        <Setter Property="FontSize" Value="Medium"/>
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+    </Style>
+
+    <Style x:Key="StepperStyle" TargetType="Stepper">
+        <Setter Property="HorizontalOptions" Value="Center"/>
+        <Setter Property="VerticalOptions" Value="Center"/>
+        <Setter Property="Margin" Value="0,5,0,0"/>
+        <Setter Property="BackgroundColor" Value="Red"/>
+    </Style>
+
+</ResourceDictionary>
