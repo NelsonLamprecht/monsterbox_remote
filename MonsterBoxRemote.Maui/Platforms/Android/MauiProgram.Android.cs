@@ -17,7 +17,16 @@ public static partial class MauiProgram
 				var control = handler.PlatformView;
 				control.Background = null;
 
-				var layoutParams = new Android.Views.ViewGroup.MarginLayoutParams(control.LayoutParameters);
+				// LayoutParameters is null before the platform view has been attached
+				// to a parent (e.g. the first layout pass) - MarginLayoutParams's copy
+				// constructor NPEs reading .width off a null source in that case, so
+				// fall back to sensible defaults instead of copying.
+				var source = control.LayoutParameters;
+				var layoutParams = source is null
+					? new Android.Views.ViewGroup.MarginLayoutParams(
+						Android.Views.ViewGroup.LayoutParams.MatchParent,
+						Android.Views.ViewGroup.LayoutParams.WrapContent)
+					: new Android.Views.ViewGroup.MarginLayoutParams(source);
 				layoutParams.SetMargins(0, 0, 0, 0);
 				control.LayoutParameters = layoutParams;
 				control.SetPadding(0, 0, 0, 0);
