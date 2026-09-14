@@ -89,7 +89,7 @@
                             <Button
                                 Grid.Column="3"
                                 Grid.Row="2"
-                                Text="Heartbeat"
+                                Text="Heart&#8203;beat"
                                 Style="{StaticResource FxButtonStyle}"
                                 Command="{Binding SendMonsterBoxCommand}" CommandParameter="{x:Static viewmodel:MonsterBoxCommands.Heartbeat}">
                             </Button>
@@ -174,7 +174,7 @@
                               RowDefinitions="*,*">
                             <Button
                                 Grid.Row="0"
-                                Text="&#9650;&#10;Up"
+                                Text="&#9650; Up"
                                 Style="{StaticResource ScarecrowButtonStyle}"
                                 HorizontalOptions="Fill"
                                 VerticalOptions="Fill"
@@ -182,7 +182,7 @@
                             </Button>
                             <Button
                                 Grid.Row="1"
-                                Text="&#9660;&#10;Down"
+                                Text="&#9660; Down"
                                 Style="{StaticResource ScarecrowButtonStyle}"
                                 HorizontalOptions="Fill"
                                 VerticalOptions="Fill"

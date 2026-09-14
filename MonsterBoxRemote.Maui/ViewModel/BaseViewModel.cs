@@ -1,8 +1,10 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
@@ -15,6 +17,11 @@ namespace MonsterBoxRemote.Maui.ViewModel
     public class BaseViewModel : INotifyPropertyChanged, IDisposable
     {
         private const int MapleClientListenTimeout = 10000;
+
+        // Addresses added via AddManualDeviceCommand, so GetServers() can leave
+        // them in HostList across rescans instead of wiping them out along with
+        // the auto-discovered entries.
+        private readonly HashSet<string> _manualDeviceAddresses = new(StringComparer.OrdinalIgnoreCase);
 
         public MapleClient client { get; private set; }
 
@@ -32,7 +39,16 @@ namespace MonsterBoxRemote.Maui.ViewModel
             set { _isBusy = value; OnPropertyChanged(nameof(IsBusy)); }
         }
 
+        string? _manualDeviceAddress;
+        public string? ManualDeviceAddress
+        {
+            get => _manualDeviceAddress;
+            set { _manualDeviceAddress = value; OnPropertyChanged(nameof(ManualDeviceAddress)); }
+        }
+
         public ObservableCollection<ServerModel> HostList { get; set; }
+
+        public Command AddManualDeviceCommand { get; }
 
         public BaseViewModel()
         {
@@ -47,6 +63,26 @@ namespace MonsterBoxRemote.Maui.ViewModel
             // so the timeout must be supplied via the constructor instead of an initializer.
             client = new MapleClient(listenTimeout: TimeSpan.FromMilliseconds(MapleClientListenTimeout));
             client.Servers.CollectionChanged += ServersCollectionChanged;
+
+            AddManualDeviceCommand = new Command(AddManualDevice);
+        }
+
+        private void AddManualDevice()
+        {
+            var address = ManualDeviceAddress?.Trim();
+            if (string.IsNullOrEmpty(address) || Uri.CheckHostName(address) == UriHostNameType.Unknown)
+            {
+                Debug.WriteLine($"Ignoring invalid manual device address: '{address}'");
+                return;
+            }
+
+            if (!HostList.Any(server => string.Equals(server.IpAddress, address, StringComparison.OrdinalIgnoreCase)))
+            {
+                HostList.Add(new ServerModel { Name = $"Manual ({address})", IpAddress = address });
+            }
+
+            _manualDeviceAddresses.Add(address);
+            ManualDeviceAddress = string.Empty;
         }
 
         public async Task GetServers()
@@ -59,10 +95,17 @@ namespace MonsterBoxRemote.Maui.ViewModel
 
             try
             {
-                // Cleared up front so repeat scans (e.g. re-entering the Controller
-                // tab) don't accumulate duplicate entries for the same physical
-                // device if MapleClient re-announces already-known hosts.
-                HostList.Clear();
+                // Only the auto-discovered entries are cleared, so manually-added
+                // devices (AddManualDeviceCommand) survive repeat scans - e.g.
+                // every time the Controller tab reappears - instead of
+                // disappearing along with everything else.
+                for (int i = HostList.Count - 1; i >= 0; i--)
+                {
+                    if (!_manualDeviceAddresses.Contains(HostList[i].IpAddress))
+                    {
+                        HostList.RemoveAt(i);
+                    }
+                }
 
                 await client.StartScanningForAdvertisingServers();
             }
@@ -77,29 +120,38 @@ namespace MonsterBoxRemote.Maui.ViewModel
         }
 
         #region INotifyPropertyChanged Implementation
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string name = null)
+        public event PropertyChangedEventHandler? PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName] string? name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
         #endregion
 
-        private void ServersCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void ServersCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)
             {
-                case NotifyCollectionChangedAction.Add:
+                case NotifyCollectionChangedAction.Add when e.NewItems != null:
                     foreach (ServerModel server in e.NewItems)
                     {
                         Debug.WriteLine($"'{server.Name}' @ ip:[{server.IpAddress}]");
+
+                        var discovered = new ServerModel { Name = $"{server.Name} ({server.IpAddress})", IpAddress = server.IpAddress };
 
                         // MapleClient raises this from its UDP listener thread, not the UI
                         // thread. Android/iOS tolerate an off-thread ObservableCollection
                         // mutation; WinUI3 hard-crashes on it (native 0xc000027b in
                         // Microsoft.UI.Xaml.dll), so this must be marshaled back to the
-                        // main thread before touching HostList.
-                        var discovered = new ServerModel { Name = $"{server.Name} ({server.IpAddress})", IpAddress = server.IpAddress };
-                        MainThread.BeginInvokeOnMainThread(() => HostList.Add(discovered));
+                        // main thread before touching HostList - the duplicate check has
+                        // to happen there too, atomically with the add, rather than
+                        // reading HostList from this thread.
+                        MainThread.BeginInvokeOnMainThread(() =>
+                        {
+                            if (!HostList.Any(h => string.Equals(h.IpAddress, discovered.IpAddress, StringComparison.OrdinalIgnoreCase)))
+                            {
+                                HostList.Add(discovered);
+                            }
+                        });
                     }
                     break;
             }
