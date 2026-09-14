@@ -66,15 +66,59 @@ namespace MonsterBoxRemote.Maui.ViewModel
             private set { _isCommandFailed = value; OnPropertyChanged(nameof(IsCommandFailed)); }
         }
 
+        string? _manualMonsterBoxAddress;
+        public string? ManualMonsterBoxAddress
+        {
+            get => _manualMonsterBoxAddress;
+            set { _manualMonsterBoxAddress = value; OnPropertyChanged(nameof(ManualMonsterBoxAddress)); }
+        }
+
+        string? _manualScarecrowAddress;
+        public string? ManualScarecrowAddress
+        {
+            get => _manualScarecrowAddress;
+            set { _manualScarecrowAddress = value; OnPropertyChanged(nameof(ManualScarecrowAddress)); }
+        }
+
         public Command SendMonsterBoxCommand { set; get; }
 
         public Command SendScarecrowCommand { set; get; }
+
+        public Command AddManualMonsterBoxDeviceCommand { get; }
+
+        public Command AddManualScarecrowDeviceCommand { get; }
 
         public MonsterBoxControllerViewModel() : base()
         {
             IsBusy = false;
             SendMonsterBoxCommand = new Command(async (obj) => await SendMeadowCommand(MonsterBoxDevice?.IpAddress, obj as string));
             SendScarecrowCommand = new Command(async (obj) => await SendMeadowCommand(ScareCrowDevice?.IpAddress, obj as string));
+
+            AddManualMonsterBoxDeviceCommand = new Command(() =>
+            {
+                var device = AddOrGetManualDevice(ManualMonsterBoxAddress);
+                if (device != null)
+                {
+                    MonsterBoxDevice = device;
+                    ManualMonsterBoxAddress = string.Empty;
+                }
+            });
+            AddManualScarecrowDeviceCommand = new Command(() =>
+            {
+                var device = AddOrGetManualDevice(ManualScarecrowAddress);
+                if (device != null)
+                {
+                    ScareCrowDevice = device;
+                    ManualScarecrowAddress = string.Empty;
+                }
+            });
+        }
+
+        protected override bool ShouldPreserveHostListEntry(ServerModel server)
+        {
+            return base.ShouldPreserveHostListEntry(server)
+                || string.Equals(server.IpAddress, MonsterBoxDevice?.IpAddress, StringComparison.OrdinalIgnoreCase)
+                || string.Equals(server.IpAddress, ScareCrowDevice?.IpAddress, StringComparison.OrdinalIgnoreCase);
         }
 
         async Task SendMeadowCommand(string? hostAddress, string? command)
