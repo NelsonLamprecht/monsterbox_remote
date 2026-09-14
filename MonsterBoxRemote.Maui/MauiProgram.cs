@@ -26,7 +26,7 @@ public static partial class MauiProgram
 		// devices and stepper values survive navigation between the two pages.
 		builder.Services.AddSingleton<MonsterBoxControllerViewModel>();
 
-		builder.Services.AddTransient<MainPage>();
+		builder.Services.AddTransient<AppShell>();
 		builder.Services.AddTransient<MonsterBoxControllerPage>();
 		builder.Services.AddTransient<MonsterBoxOptionsPage>();
 

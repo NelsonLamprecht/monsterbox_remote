@@ -47,24 +47,11 @@ namespace MonsterBoxRemote.Maui.ViewModel
 
         public ObservableCollection<ServerModel> HostList { get; set; }
 
-        public ObservableCollection<PageModel> PageList { get; set; }
-
         public Command SearchServersCommand { set; get; }
 
         public BaseViewModel()
         {
             HostList = new ObservableCollection<ServerModel>();
-            PageList = new ObservableCollection<PageModel>();
-
-            // TODO: Dynamic!
-            PageList.Add(new PageModel()
-            {
-                Name = "Controller Page"
-            });
-            PageList.Add(new PageModel()
-            {
-                Name = "Options Page"
-            });
 
             //HostList.Add(new ServerModel() { Name="Meadow (192.168.1.73)", IpAddress="192.168.1.73" });
             //HostList.Add(new ServerModel() { Name = "Meadow (192.168.1.74)", IpAddress = "192.168.1.74" });

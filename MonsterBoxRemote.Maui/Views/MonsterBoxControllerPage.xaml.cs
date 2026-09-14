@@ -1,21 +1,17 @@
 using System;
 using System.Diagnostics;
 
-using Microsoft.Extensions.DependencyInjection;
-
 using MonsterBoxRemote.Maui.ViewModel;
 
 namespace MonsterBoxRemote.Maui.Views
 {
     public partial class MonsterBoxControllerPage : ContentPage
     {
-        private readonly IServiceProvider _services;
         private MonsterBoxControllerViewModel ViewModel { get; }
 
-        public MonsterBoxControllerPage(MonsterBoxControllerViewModel viewModel, IServiceProvider services)
+        public MonsterBoxControllerPage(MonsterBoxControllerViewModel viewModel)
         {
             InitializeComponent();
-            _services = services;
             ViewModel = viewModel;
             BindingContext = ViewModel;
         }
@@ -62,31 +58,27 @@ namespace MonsterBoxRemote.Maui.Views
                 // carries 15 buttons vs. Scarecrow's 2, so an even Star/Star split
                 // starved MonsterBox of the height its content needs, clipping
                 // wrapped button labels.
-                DeviceGrid.RowDefinitions.Add(new RowDefinition(GridLength.Auto));
                 DeviceGrid.RowDefinitions.Add(new RowDefinition(new GridLength(3, GridUnitType.Star)));
                 DeviceGrid.RowDefinitions.Add(new RowDefinition(new GridLength(1, GridUnitType.Star)));
                 DeviceGrid.ColumnDefinitions.Add(new ColumnDefinition(GridLength.Star));
 
-                Grid.SetColumnSpan(NavPickerBorder, 1);
-                Grid.SetRow(MonsterBoxPanel, 1);
+                Grid.SetRow(MonsterBoxPanel, 0);
                 Grid.SetColumn(MonsterBoxPanel, 0);
                 Grid.SetColumnSpan(MonsterBoxPanel, 1);
-                Grid.SetRow(ScarecrowPanel, 2);
+                Grid.SetRow(ScarecrowPanel, 1);
                 Grid.SetColumn(ScarecrowPanel, 0);
                 Grid.SetColumnSpan(ScarecrowPanel, 1);
             }
             else
             {
-                DeviceGrid.RowDefinitions.Add(new RowDefinition(GridLength.Auto));
                 DeviceGrid.RowDefinitions.Add(new RowDefinition(GridLength.Star));
                 DeviceGrid.ColumnDefinitions.Add(new ColumnDefinition(GridLength.Star));
                 DeviceGrid.ColumnDefinitions.Add(new ColumnDefinition(GridLength.Star));
 
-                Grid.SetColumnSpan(NavPickerBorder, 2);
-                Grid.SetRow(MonsterBoxPanel, 1);
+                Grid.SetRow(MonsterBoxPanel, 0);
                 Grid.SetColumn(MonsterBoxPanel, 0);
                 Grid.SetColumnSpan(MonsterBoxPanel, 1);
-                Grid.SetRow(ScarecrowPanel, 1);
+                Grid.SetRow(ScarecrowPanel, 0);
                 Grid.SetColumn(ScarecrowPanel, 1);
                 Grid.SetColumnSpan(ScarecrowPanel, 1);
             }
@@ -136,27 +128,6 @@ namespace MonsterBoxRemote.Maui.Views
                 if (ViewModel != null)
                 {
                     ViewModel.EndDelay = value;
-                }
-            }
-        }
-
-        private void PagePicker_SelectedIndexChanged(object sender, System.EventArgs e)
-        {
-            var picker = (Picker)sender;
-            if (picker.SelectedItem is PageModel selectedItem)
-            {
-                switch (selectedItem.Name)
-                {
-                    case "Options Page":
-                        {
-                            Navigation.PushAsync(_services.GetRequiredService<MonsterBoxOptionsPage>());
-                            break;
-                        }
-                    case "Controller Page":
-                        {
-                            Navigation.PushAsync(_services.GetRequiredService<MonsterBoxControllerPage>());
-                            break;
-                        }
                 }
             }
         }

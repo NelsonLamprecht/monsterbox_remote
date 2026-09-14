@@ -35,22 +35,13 @@
                 </Grid.Triggers>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <Border
-                    Grid.Row="0"
-                    BackgroundColor="{AppThemeBinding Light={StaticResource SpookyPurpleLight}, Dark={StaticResource SpookyPurpleDark}}" Stroke="Transparent" StrokeThickness="0" StrokeShape="RoundRectangle 5" Padding="10">
-                    <Picker TextColor="White" FontSize="Medium" BackgroundColor="{AppThemeBinding Light={StaticResource SpookyPurpleLight}, Dark={StaticResource SpookyPurpleDark}}"
-                            ItemsSource="{Binding PageList}" ItemDisplayBinding="{Binding Name}"
-                            SelectedIndexChanged="PagePicker_SelectedIndexChanged"
-                    />
-                </Border>
                 <!--Device selection - moved off the Controller page, which needed
                     the vertical room for its button grid on narrow screens.-->
                 <Border
-                    Grid.Row="1"
+                    Grid.Row="0"
                     BackgroundColor="{AppThemeBinding Light={StaticResource SpookyOrangeLight}, Dark={StaticResource SpookyOrangeDark}}" Stroke="Transparent" StrokeThickness="0" StrokeShape="RoundRectangle 5" Padding="10">
                     <Grid RowDefinitions="Auto,Auto,Auto" RowSpacing="6">
                         <Label
@@ -74,7 +65,7 @@
                     </Grid>
                 </Border>
                 <Border
-                    Grid.Row="2"
+                    Grid.Row="1"
                     HorizontalOptions="Fill"
                     VerticalOptions="End"
                     BackgroundColor="{AppThemeBinding Light={StaticResource SpookyOrangeLight}, Dark={StaticResource SpookyOrangeDark}}" Stroke="Transparent" StrokeThickness="0" StrokeShape="RoundRectangle 5" Padding="10">

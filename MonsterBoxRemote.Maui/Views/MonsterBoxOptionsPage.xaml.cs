@@ -1,8 +1,6 @@
 using System;
 using System.Diagnostics;
 
-using Microsoft.Extensions.DependencyInjection;
-
 using MonsterBoxRemote.Maui.ViewModel;
 using Meadow.Foundation.Web.Maple;
 
@@ -10,13 +8,11 @@ namespace MonsterBoxRemote.Maui.Views
 {
     public partial class MonsterBoxOptionsPage : ContentPage
     {
-        private readonly IServiceProvider _services;
         private MonsterBoxControllerViewModel ViewModel { get; }
 
-        public MonsterBoxOptionsPage(MonsterBoxControllerViewModel viewModel, IServiceProvider services)
+        public MonsterBoxOptionsPage(MonsterBoxControllerViewModel viewModel)
         {
             InitializeComponent();
-            _services = services;
             ViewModel = viewModel;
             BindingContext = ViewModel;
         }
@@ -70,28 +66,6 @@ namespace MonsterBoxRemote.Maui.Views
                 if (ViewModel != null)
                 {
                     ViewModel.EndDelay = value;
-                }
-            }
-        }
-
-        private void PagePicker_SelectedIndexChanged(object sender, System.EventArgs e)
-        {
-            var picker = (Picker)sender;
-            var selectedItem = picker.SelectedItem as PageModel;
-            if (selectedItem != null)
-            {
-                switch (selectedItem.Name)
-                {
-                    case "Options Page":
-                        {
-                            Navigation.PushAsync(_services.GetRequiredService<MonsterBoxOptionsPage>());
-                            break;
-                        }
-                    case "Controller Page":
-                        {
-                            Navigation.PushAsync(_services.GetRequiredService<MonsterBoxControllerPage>());
-                            break;
-                        }
                 }
             }
         }
