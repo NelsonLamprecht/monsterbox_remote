@@ -47,6 +47,32 @@
                             SelectedIndexChanged="PagePicker_SelectedIndexChanged"
                     />
                 </Border>
+                <!--Device selection - moved off the Controller page, which needed
+                    the vertical room for its button grid on narrow screens.-->
+                <Border
+                    Grid.Row="1"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource SpookyOrangeLight}, Dark={StaticResource SpookyOrangeDark}}" Stroke="Transparent" StrokeThickness="0" StrokeShape="RoundRectangle 5" Padding="10">
+                    <Grid RowDefinitions="Auto,Auto,Auto" RowSpacing="6">
+                        <Label
+                            Grid.Row="0"
+                            Text="DEVICES"
+                            Style="{StaticResource SectionHeaderStyle}" />
+                        <Picker
+                            Grid.Row="1"
+                            Title="MonsterBox host"
+                            TextColor="White" FontSize="Medium" BackgroundColor="{AppThemeBinding Light={StaticResource SpookyPurpleLight}, Dark={StaticResource SpookyPurpleDark}}"
+                            ItemsSource="{Binding HostList}" ItemDisplayBinding="{Binding Name}"
+                            SelectedIndexChanged="PickerMonsterBox_SelectedIndexChanged"
+                        />
+                        <Picker
+                            Grid.Row="2"
+                            Title="Scarecrow host"
+                            TextColor="White" FontSize="Medium" BackgroundColor="{AppThemeBinding Light={StaticResource SpookyPurpleLight}, Dark={StaticResource SpookyPurpleDark}}"
+                            ItemsSource="{Binding HostList}" ItemDisplayBinding="{Binding Name}"
+                            SelectedIndexChanged="PickerScareCrow_SelectedIndexChanged"
+                        />
+                    </Grid>
+                </Border>
                 <Border
                     Grid.Row="2"
                     HorizontalOptions="Fill"

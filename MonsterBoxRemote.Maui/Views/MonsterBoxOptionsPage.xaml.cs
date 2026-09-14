@@ -4,6 +4,7 @@ using System.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 
 using MonsterBoxRemote.Maui.ViewModel;
+using Meadow.Foundation.Web.Maple;
 
 namespace MonsterBoxRemote.Maui.Views
 {
@@ -92,6 +93,24 @@ namespace MonsterBoxRemote.Maui.Views
                             break;
                         }
                 }
+            }
+        }
+
+        private void PickerMonsterBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var picker = (Picker)sender;
+            if (picker.SelectedItem is ServerModel selectedItem)
+            {
+                ViewModel.MonsterBoxDevice = selectedItem;
+            }
+        }
+
+        private void PickerScareCrow_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var picker = (Picker)sender;
+            if (picker.SelectedItem is ServerModel selectedItem)
+            {
+                ViewModel.ScareCrowDevice = selectedItem;
             }
         }
     }

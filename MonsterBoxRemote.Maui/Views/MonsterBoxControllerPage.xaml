@@ -61,15 +61,8 @@
                     Grid.Row="1"
                     VerticalOptions="Fill"
                     BackgroundColor="{AppThemeBinding Light={StaticResource SpookyOrangeLight}, Dark={StaticResource SpookyOrangeDark}}" Stroke="Transparent" StrokeThickness="0" StrokeShape="RoundRectangle 5" Padding="10">
-                    <Grid RowDefinitions="Auto,*">
-                        <Picker
-                            Grid.Row="0"
-                            TextColor="White" FontSize="Medium" BackgroundColor="{AppThemeBinding Light={StaticResource SpookyPurpleLight}, Dark={StaticResource SpookyPurpleDark}}"
-                            ItemsSource="{Binding HostList}" ItemDisplayBinding="{Binding Name}"
-                            SelectedIndexChanged="PickerMonsterBox_SelectedIndexChanged"
-                        />
-                        <Grid Grid.Row="1" RowSpacing="6" ColumnSpacing="6" Margin="0,6,0,0"
-                              RowDefinitions="Auto,Auto,*,*,Auto,*"
+                        <Grid RowSpacing="6" ColumnSpacing="6"
+                              RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto"
                               ColumnDefinitions="*,*,*,*,*">
                             <Button
                                 Grid.Row="0"
@@ -181,7 +174,6 @@
                                 Command="{Binding SendMonsterBoxCommand}" CommandParameter="creature5">
                             </Button>
                         </Grid>
-                    </Grid>
                 </Border>
                 <!--Right panel: Scarecrow up/down controls-->
                 <Border
@@ -190,14 +182,7 @@
                     Grid.Row="1"
                     VerticalOptions="Fill"
                     BackgroundColor="{AppThemeBinding Light={StaticResource SpookyOrangeLight}, Dark={StaticResource SpookyOrangeDark}}" Stroke="Transparent" StrokeThickness="0" StrokeShape="RoundRectangle 5" Padding="10">
-                    <Grid RowDefinitions="Auto,*">
-                        <Picker
-                            Grid.Row="0"
-                            TextColor="White" FontSize="Medium" BackgroundColor="{AppThemeBinding Light={StaticResource SpookyPurpleLight}, Dark={StaticResource SpookyPurpleDark}}"
-                            ItemsSource="{Binding HostList}" ItemDisplayBinding="{Binding Name}"
-                            SelectedIndexChanged="PickerScareCrow_SelectedIndexChanged"
-                        />
-                        <Grid Grid.Row="1" RowSpacing="6" Margin="0,6,0,0"
+                        <Grid RowSpacing="6"
                               RowDefinitions="*,*">
                             <Button
                                 Grid.Row="0"
@@ -216,7 +201,6 @@
                                 Command="{Binding SendScarecrowCommand}" CommandParameter="down">
                             </Button>
                         </Grid>
-                    </Grid>
                 </Border>
             </Grid>
         </Grid>

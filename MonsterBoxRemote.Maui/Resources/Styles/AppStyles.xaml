@@ -61,9 +61,9 @@
          trigger, wrap/padding, and touch-target floor above; only the color
          (and Shake's size) differs. -->
     <Style x:Key="ShakeButtonStyle" TargetType="Button" BasedOn="{StaticResource ButtonStyle}">
-        <Setter Property="FontSize" Value="24" />
-        <Setter Property="Padding" Value="6,26" />
-        <Setter Property="MinimumHeightRequest" Value="64" />
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="Padding" Value="6,16" />
+        <Setter Property="MinimumHeightRequest" Value="56" />
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource SpookyRedLight}, Dark={StaticResource SpookyRedDark}}" />
     </Style>
 

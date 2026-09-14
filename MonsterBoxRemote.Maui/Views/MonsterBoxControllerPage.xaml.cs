@@ -4,7 +4,6 @@ using System.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 
 using MonsterBoxRemote.Maui.ViewModel;
-using Meadow.Foundation.Web.Maple;
 
 namespace MonsterBoxRemote.Maui.Views
 {
@@ -59,9 +58,13 @@ namespace MonsterBoxRemote.Maui.Views
 
             if (isCompact)
             {
+                // Same 3:1 weighting as the wide layout's columns below - MonsterBox
+                // carries 15 buttons vs. Scarecrow's 2, so an even Star/Star split
+                // starved MonsterBox of the height its content needs, clipping
+                // wrapped button labels.
                 DeviceGrid.RowDefinitions.Add(new RowDefinition(GridLength.Auto));
-                DeviceGrid.RowDefinitions.Add(new RowDefinition(GridLength.Star));
-                DeviceGrid.RowDefinitions.Add(new RowDefinition(GridLength.Star));
+                DeviceGrid.RowDefinitions.Add(new RowDefinition(new GridLength(3, GridUnitType.Star)));
+                DeviceGrid.RowDefinitions.Add(new RowDefinition(new GridLength(1, GridUnitType.Star)));
                 DeviceGrid.ColumnDefinitions.Add(new ColumnDefinition(GridLength.Star));
 
                 Grid.SetColumnSpan(NavPickerBorder, 1);
@@ -155,24 +158,6 @@ namespace MonsterBoxRemote.Maui.Views
                             break;
                         }
                 }
-            }
-        }
-
-        private void PickerMonsterBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            var picker = (Picker)sender;
-            if (picker.SelectedItem is ServerModel selectedItem)
-            {
-                ViewModel.MonsterBoxDevice = selectedItem;
-            }
-        }
-
-        private void PickerScareCrow_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            var picker = (Picker)sender;
-            if (picker.SelectedItem is ServerModel selectedItem)
-            {
-                ViewModel.ScareCrowDevice = selectedItem;
             }
         }
     }
