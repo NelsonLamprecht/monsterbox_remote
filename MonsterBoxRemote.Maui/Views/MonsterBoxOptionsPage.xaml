@@ -51,14 +51,14 @@
                         <Picker
                             Grid.Row="1"
                             Title="MonsterBox host"
-                            TextColor="White" FontSize="Medium" BackgroundColor="{AppThemeBinding Light={StaticResource SpookyPurpleLight}, Dark={StaticResource SpookyPurpleDark}}"
+                            TextColor="White" FontSize="16" BackgroundColor="{AppThemeBinding Light={StaticResource SpookyPurpleLight}, Dark={StaticResource SpookyPurpleDark}}"
                             ItemsSource="{Binding HostList}" ItemDisplayBinding="{Binding Name}"
                             SelectedIndexChanged="PickerMonsterBox_SelectedIndexChanged"
                         />
                         <Picker
                             Grid.Row="2"
                             Title="Scarecrow host"
-                            TextColor="White" FontSize="Medium" BackgroundColor="{AppThemeBinding Light={StaticResource SpookyPurpleLight}, Dark={StaticResource SpookyPurpleDark}}"
+                            TextColor="White" FontSize="16" BackgroundColor="{AppThemeBinding Light={StaticResource SpookyPurpleLight}, Dark={StaticResource SpookyPurpleDark}}"
                             ItemsSource="{Binding HostList}" ItemDisplayBinding="{Binding Name}"
                             SelectedIndexChanged="PickerScareCrow_SelectedIndexChanged"
                         />
@@ -88,11 +88,11 @@
 
                             <Label
                                 Text="Begin Iterations"
-                                FontSize="Medium" Style="{StaticResource LabelStyle}" />
+                                FontSize="16" Style="{StaticResource LabelStyle}" />
 
                             <Label
                                 Text="{Binding BeginIterations}"
-                                FontSize="Medium" Style="{StaticResource LabelStyle}" />
+                                FontSize="16" Style="{StaticResource LabelStyle}" />
 
                             <Stepper
                                 Minimum="0"
@@ -113,11 +113,11 @@
 
                             <Label
                                 Text="End Iterations"
-                                FontSize="Medium" Style="{StaticResource LabelStyle}" />
+                                FontSize="16" Style="{StaticResource LabelStyle}" />
 
                             <Label
                                 Text="{Binding EndIterations}"
-                                FontSize="Medium" Style="{StaticResource LabelStyle}" />
+                                FontSize="16" Style="{StaticResource LabelStyle}" />
 
                             <Stepper
                                 Minimum="0"
@@ -138,11 +138,11 @@
 
                             <Label
                                 Text="Begin Delay"
-                                FontSize="Medium" Style="{StaticResource LabelStyle}" />
+                                FontSize="16" Style="{StaticResource LabelStyle}" />
 
                             <Label
                                 Text="{Binding BeginDelay}"
-                                FontSize="Medium" Style="{StaticResource LabelStyle}" />
+                                FontSize="16" Style="{StaticResource LabelStyle}" />
 
                             <Stepper
                                 Minimum="0"
@@ -163,12 +163,12 @@
 
                             <Label
                                 Text="End Delay"
-                                FontSize="Medium"
+                                FontSize="16"
                                 Style="{StaticResource LabelStyle}" />
 
                             <Label
                                 Text="{Binding EndDelay}"
-                                FontSize="Medium"
+                                FontSize="16"
                                 Style="{StaticResource LabelStyle}" />
 
                             <Stepper
