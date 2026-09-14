@@ -40,6 +40,14 @@
     <Color x:Key="ButtonInactiveLight">#555555</Color>
     <Color x:Key="ButtonInactiveDark">#2B2B2B</Color>
 
+    <!-- Category accents for the Controller page button groups. White text on
+         each Light value measures >=5.2:1 (WCAG AA); Dark values are deeper/
+         muted variants of the same hue, same rationale as the palette above. -->
+    <Color x:Key="SpookyRedLight">#B3261E</Color>
+    <Color x:Key="SpookyRedDark">#5C1A17</Color>
+    <Color x:Key="SpookyTealLight">#0F7A6C</Color>
+    <Color x:Key="SpookyTealDark">#0A3D36</Color>
+
     <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}"/>
     <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource Secondary}"/>
     <SolidColorBrush x:Key="TertiaryBrush" Color="{StaticResource Tertiary}"/>
