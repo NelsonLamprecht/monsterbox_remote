@@ -2,6 +2,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
@@ -11,7 +12,7 @@ using Meadow.Foundation.Web.Maple;
 
 namespace MonsterBoxRemote.Maui.ViewModel
 {
-    public class BaseViewModel : INotifyPropertyChanged
+    public class BaseViewModel : INotifyPropertyChanged, IDisposable
     {
         private const int MapleClientListenTimeout = 10000;
 
@@ -31,23 +32,7 @@ namespace MonsterBoxRemote.Maui.ViewModel
             set { _isBusy = value; OnPropertyChanged(nameof(IsBusy)); }
         }
 
-        bool _isServerListEmpty;
-        public bool IsServerListEmpty
-        {
-            get => _isServerListEmpty;
-            set { _isServerListEmpty = value; OnPropertyChanged(nameof(IsServerListEmpty)); }
-        }
-
-        string ipAddress;
-        public string IpAddress
-        {
-            get => ipAddress;
-            set { ipAddress = value; OnPropertyChanged(nameof(IpAddress)); }
-        }
-
         public ObservableCollection<ServerModel> HostList { get; set; }
-
-        public Command SearchServersCommand { set; get; }
 
         public BaseViewModel()
         {
@@ -62,8 +47,6 @@ namespace MonsterBoxRemote.Maui.ViewModel
             // so the timeout must be supplied via the constructor instead of an initializer.
             client = new MapleClient(listenTimeout: TimeSpan.FromMilliseconds(MapleClientListenTimeout));
             client.Servers.CollectionChanged += ServersCollectionChanged;
-
-            SearchServersCommand = new Command(async () => await GetServers());
         }
 
         public async Task GetServers()
@@ -76,20 +59,16 @@ namespace MonsterBoxRemote.Maui.ViewModel
 
             try
             {
-                IsServerListEmpty = false;
+                // Cleared up front so repeat scans (e.g. re-entering the Controller
+                // tab) don't accumulate duplicate entries for the same physical
+                // device if MapleClient re-announces already-known hosts.
+                HostList.Clear();
 
                 await client.StartScanningForAdvertisingServers();
-
-                // Same off-thread-continuation risk as ServersCollectionChanged above -
-                // don't assume this resumes on the UI thread.
-                await MainThread.InvokeOnMainThreadAsync(() =>
-                {
-                    IsServerListEmpty = HostList.Count == 0;
-                });
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Debug.WriteLine(ex);
             }
             finally
             {
@@ -105,14 +84,14 @@ namespace MonsterBoxRemote.Maui.ViewModel
         }
         #endregion
 
-         private void ServersCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void ServersCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             switch (e.Action)
             {
                 case NotifyCollectionChangedAction.Add:
                     foreach (ServerModel server in e.NewItems)
                     {
-                        Console.WriteLine($"'{server.Name}' @ ip:[{server.IpAddress}]");
+                        Debug.WriteLine($"'{server.Name}' @ ip:[{server.IpAddress}]");
 
                         // MapleClient raises this from its UDP listener thread, not the UI
                         // thread. Android/iOS tolerate an off-thread ObservableCollection
@@ -124,6 +103,12 @@ namespace MonsterBoxRemote.Maui.ViewModel
                     }
                     break;
             }
+        }
+
+        public void Dispose()
+        {
+            client.Servers.CollectionChanged -= ServersCollectionChanged;
+            GC.SuppressFinalize(this);
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -19,9 +20,9 @@ namespace MonsterBoxRemote.Maui.ViewModel
                 }
 
                 sb.Append(startingQuestionMarkAdded ? '&' : '?');
-                sb.Append(parameter.Key);
+                sb.Append(Uri.EscapeDataString(parameter.Key));
                 sb.Append('=');
-                sb.Append(parameter.Value);
+                sb.Append(Uri.EscapeDataString(parameter.Value));
                 startingQuestionMarkAdded = true;
             }
             return sb.ToString();

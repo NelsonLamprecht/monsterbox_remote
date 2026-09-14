@@ -1,6 +1,3 @@
-using System;
-using System.Diagnostics;
-
 using MonsterBoxRemote.Maui.ViewModel;
 
 namespace MonsterBoxRemote.Maui.Views
@@ -81,54 +78,6 @@ namespace MonsterBoxRemote.Maui.Views
                 Grid.SetRow(ScarecrowPanel, 0);
                 Grid.SetColumn(ScarecrowPanel, 1);
                 Grid.SetColumnSpan(ScarecrowPanel, 1);
-            }
-        }
-
-        private void BeginIterationsStepper_ValueChanged(object sender, ValueChangedEventArgs e)
-        {
-            Debug.WriteLine(e.NewValue);
-            if (int.TryParse(e.NewValue.ToString(), out var value))
-            {
-                if (ViewModel != null)
-                {
-                    ViewModel.BeginIterations = value;
-                }
-            }
-        }
-
-        private void EndIterationsStepper_ValueChanged(object sender, ValueChangedEventArgs e)
-        {
-            Debug.WriteLine(e.NewValue);
-            if (int.TryParse(e.NewValue.ToString(), out var value))
-            {
-                if (ViewModel != null)
-                {
-                    ViewModel.EndIterations = value;
-                }
-            }
-        }
-
-        private void BeginDelayStepper_ValueChanged(object sender, ValueChangedEventArgs e)
-        {
-            Debug.WriteLine(e.NewValue);
-            if (int.TryParse(e.NewValue.ToString(), out var value))
-            {
-                if (ViewModel != null)
-                {
-                    ViewModel.BeginDelay = value;
-                }
-            }
-        }
-
-        private void EndDelayStepper_ValueChanged(object sender, ValueChangedEventArgs e)
-        {
-            Debug.WriteLine(e.NewValue);
-            if (int.TryParse(e.NewValue.ToString(), out var value))
-            {
-                if (ViewModel != null)
-                {
-                    ViewModel.EndDelay = value;
-                }
             }
         }
     }

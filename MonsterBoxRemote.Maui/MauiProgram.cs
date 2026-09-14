@@ -26,9 +26,14 @@ public static partial class MauiProgram
 		// devices and stepper values survive navigation between the two pages.
 		builder.Services.AddSingleton<MonsterBoxControllerViewModel>();
 
-		builder.Services.AddTransient<AppShell>();
-		builder.Services.AddTransient<MonsterBoxControllerPage>();
-		builder.Services.AddTransient<MonsterBoxOptionsPage>();
+		// Registered as singletons, matching how they're actually used: AppShell
+		// is resolved exactly once in App.CreateWindow, and it resolves each page
+		// exactly once and holds it as permanent ShellContent.Content (see
+		// AppShell.xaml.cs) - there's no scenario where a second instance of any
+		// of these should exist alongside the first.
+		builder.Services.AddSingleton<AppShell>();
+		builder.Services.AddSingleton<MonsterBoxControllerPage>();
+		builder.Services.AddSingleton<MonsterBoxOptionsPage>();
 
 #if DEBUG
 		builder.Logging.AddDebug();

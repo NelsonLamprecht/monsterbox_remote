@@ -4,12 +4,19 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
+using Microsoft.Maui.ApplicationModel;
 using Microsoft.Maui.Controls;
+using Microsoft.Maui.Devices;
 
 namespace MonsterBoxRemote.Maui.ViewModel
 {
     public class MonsterBoxControllerViewModel : BaseViewModel
     {
+        // Buttons flash this state briefly (see ButtonStyle's IsCommandFailed
+        // trigger in AppStyles.xaml) so a failed command is visible to whoever's
+        // running the show, instead of looking identical to a successful one.
+        private const int CommandFailedFlashDurationMs = 700;
+
         int _beginIterations = 25;
         public int BeginIterations
         {
@@ -38,9 +45,26 @@ namespace MonsterBoxRemote.Maui.ViewModel
             set { _endDelay = value; OnPropertyChanged(nameof(EndDelay)); }
         }
 
-        public ServerModel MonsterBoxDevice { get; internal set; }
+        ServerModel? _monsterBoxDevice;
+        public ServerModel? MonsterBoxDevice
+        {
+            get => _monsterBoxDevice;
+            set { _monsterBoxDevice = value; OnPropertyChanged(nameof(MonsterBoxDevice)); }
+        }
 
-        public ServerModel ScareCrowDevice { get; internal set; }
+        ServerModel? _scareCrowDevice;
+        public ServerModel? ScareCrowDevice
+        {
+            get => _scareCrowDevice;
+            set { _scareCrowDevice = value; OnPropertyChanged(nameof(ScareCrowDevice)); }
+        }
+
+        bool _isCommandFailed;
+        public bool IsCommandFailed
+        {
+            get => _isCommandFailed;
+            private set { _isCommandFailed = value; OnPropertyChanged(nameof(IsCommandFailed)); }
+        }
 
         public Command SendMonsterBoxCommand { set; get; }
 
@@ -53,7 +77,7 @@ namespace MonsterBoxRemote.Maui.ViewModel
             SendScarecrowCommand = new Command(async (obj) => await SendMeadowCommand(ScareCrowDevice?.IpAddress, obj as string));
         }
 
-        async Task SendMeadowCommand(string hostAddress, string command)
+        async Task SendMeadowCommand(string? hostAddress, string? command)
         {
             if (IsBusy || string.IsNullOrEmpty(hostAddress) || string.IsNullOrEmpty(command))
             {
@@ -61,13 +85,14 @@ namespace MonsterBoxRemote.Maui.ViewModel
             }
 
             IsBusy = true;
+            bool succeeded;
 
             try
             {
                 bool response = false;
                 switch (command.ToLower())
                 {
-                    case "shake":
+                    case MonsterBoxCommands.Shake:
                         {
                             var query = new Dictionary<string, string>()
                             {
@@ -80,21 +105,21 @@ namespace MonsterBoxRemote.Maui.ViewModel
                             response = await PostHttpDataWithCommand(hostAddress,complexCommand);
                             break;
                         }
-                    case "werewolf":
-                    case "laugh":
-                    case "chains":
-                    case "heartbeat":
-                    case "dragongrowl":
-                    case "doorcreek":
-                    case "metalhit":
-                    case "raven":
-                    case "creature1":
-                    case "creature2":
-                    case "creature3":
-                    case "creature4":
-                    case "creature5":
+                    case MonsterBoxCommands.Werewolf:
+                    case MonsterBoxCommands.Laugh:
+                    case MonsterBoxCommands.Chains:
+                    case MonsterBoxCommands.Heartbeat:
+                    case MonsterBoxCommands.DragonGrowl:
+                    case MonsterBoxCommands.DoorCreek:
+                    case MonsterBoxCommands.MetalHit:
+                    case MonsterBoxCommands.Raven:
+                    case MonsterBoxCommands.Creature1:
+                    case MonsterBoxCommands.Creature2:
+                    case MonsterBoxCommands.Creature3:
+                    case MonsterBoxCommands.Creature4:
+                    case MonsterBoxCommands.Creature5:
                         {
-                            Dictionary<string, string> query = GetSoundFileParameters(command);
+                            Dictionary<string, string>? query = ResolveSoundParameters(command);
                             if (query != null)
                             {
                                 var complexCommand = RequestUriUtil.GetUriWithQueryString("sound", query).ToLower();
@@ -112,18 +137,45 @@ namespace MonsterBoxRemote.Maui.ViewModel
                             break;
                         }
                 }
+
+                succeeded = response;
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Debug.WriteLine(ex);
+                succeeded = false;
             }
             finally
             {
+                // Reset before the failure flash below, so the flash isn't
+                // fighting the IsBusy trigger for the button's BackgroundColor.
                 IsBusy = false;
+            }
+
+            if (!succeeded)
+            {
+                await SignalCommandFailedAsync();
             }
         }
 
-        private static Dictionary<string, string> GetFileSoundParameters(int fileNumber, int fileDuration)
+        private async Task SignalCommandFailedAsync()
+        {
+            try
+            {
+                HapticFeedback.Default.Perform(HapticFeedbackType.LongPress);
+            }
+            catch (FeatureNotSupportedException)
+            {
+                // No haptic hardware/support on this platform (e.g. Windows) -
+                // the button's visual flash below still signals the failure.
+            }
+
+            IsCommandFailed = true;
+            await Task.Delay(CommandFailedFlashDurationMs);
+            await MainThread.InvokeOnMainThreadAsync(() => IsCommandFailed = false);
+        }
+
+        private static Dictionary<string, string> BuildSoundQuery(int fileNumber, int fileDuration)
         {
             return new Dictionary<string, string>()
             {
@@ -132,61 +184,61 @@ namespace MonsterBoxRemote.Maui.ViewModel
             };
         }
 
-        private static Dictionary<string, string> GetSoundFileParameters(string command)
+        private static Dictionary<string, string>? ResolveSoundParameters(string command)
         {
             switch (command)
             {
-                case "werewolf":
+                case MonsterBoxCommands.Werewolf:
                     {
-                        return GetFileSoundParameters(1,9);
+                        return BuildSoundQuery(1,9);
                     }
-                case "laugh":
+                case MonsterBoxCommands.Laugh:
                     {
-                        return GetFileSoundParameters(2,2);
+                        return BuildSoundQuery(2,2);
                     }
-                case "chains":
+                case MonsterBoxCommands.Chains:
                     {
-                        return GetFileSoundParameters(3, 13);
+                        return BuildSoundQuery(3, 13);
                     }
-                case "heartbeat":
+                case MonsterBoxCommands.Heartbeat:
                     {
-                        return GetFileSoundParameters(4, 12);
+                        return BuildSoundQuery(4, 12);
                     }
-                case "dragongrowl":
+                case MonsterBoxCommands.DragonGrowl:
                     {
-                        return GetFileSoundParameters(5, 5);
+                        return BuildSoundQuery(5, 5);
                     }
-                case "doorcreek":
+                case MonsterBoxCommands.DoorCreek:
                     {
-                        return GetFileSoundParameters(6, 2);
+                        return BuildSoundQuery(6, 2);
                     }
-                case "creature1":
+                case MonsterBoxCommands.Creature1:
                     {
-                        return GetFileSoundParameters(7, 5);
+                        return BuildSoundQuery(7, 5);
                     }
-                case "creature2":
+                case MonsterBoxCommands.Creature2:
                     {
-                        return GetFileSoundParameters(8, 3);
+                        return BuildSoundQuery(8, 3);
                     }
-                case "creature3":
+                case MonsterBoxCommands.Creature3:
                     {
-                        return GetFileSoundParameters(9, 7);
+                        return BuildSoundQuery(9, 7);
                     }
-                case "creature4":
+                case MonsterBoxCommands.Creature4:
                     {
-                        return GetFileSoundParameters(10, 7);
+                        return BuildSoundQuery(10, 7);
                     }
-                case "creature5":
+                case MonsterBoxCommands.Creature5:
                     {
-                        return GetFileSoundParameters(11, 6);
+                        return BuildSoundQuery(11, 6);
                     }
-                case "metalhit":
+                case MonsterBoxCommands.MetalHit:
                     {
-                        return GetFileSoundParameters(12, 8);
+                        return BuildSoundQuery(12, 8);
                     }
-                case "raven":
+                case MonsterBoxCommands.Raven:
                     {
-                        return GetFileSoundParameters(13, 2);
+                        return BuildSoundQuery(13, 2);
                     }
                 default:
                     {
