@@ -17,6 +17,9 @@ public class MainActivity : MauiAppCompatActivity
         // bar icons render dark so they stay legible against it (light theme).
         // Dark theme keeps light icons, matching the deep-green dark palette.
         var isDarkTheme = (Resources?.Configuration?.UiMode & Android.Content.Res.UiMode.NightMask) == Android.Content.Res.UiMode.NightYes;
-        WindowCompat.GetInsetsController(Window!, Window!.DecorView).AppearanceLightStatusBars = !isDarkTheme;
+        if (Window is { } window && WindowCompat.GetInsetsController(window, window.DecorView) is { } insetsController)
+        {
+            insetsController.AppearanceLightStatusBars = !isDarkTheme;
+        }
     }
 }

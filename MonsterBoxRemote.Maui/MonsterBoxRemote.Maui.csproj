@@ -30,7 +30,7 @@
 		<ApplicationTitle>MonsterBoxRemote.Maui</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.monsterboxremote.maui</ApplicationId>
+		<ApplicationId>com.kayza.monsterboxremote.maui</ApplicationId>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>

@@ -219,12 +219,11 @@ namespace MonsterBoxRemote.Maui.ViewModel
             await MainThread.InvokeOnMainThreadAsync(() => IsCommandFailed = false);
         }
 
-        private static Dictionary<string, string> BuildSoundQuery(int fileNumber, int fileDuration)
+        private static Dictionary<string, string> BuildSoundQuery(int fileNumber)
         {
             return new Dictionary<string, string>()
             {
-                ["filenumber"] = fileNumber.ToString(),
-                ["fileduration"] = fileDuration.ToString()
+                ["filenumber"] = fileNumber.ToString()
             };
         }
 
@@ -234,55 +233,55 @@ namespace MonsterBoxRemote.Maui.ViewModel
             {
                 case MonsterBoxCommands.Werewolf:
                     {
-                        return BuildSoundQuery(1,9);
+                        return BuildSoundQuery(1);
                     }
                 case MonsterBoxCommands.Laugh:
                     {
-                        return BuildSoundQuery(2,2);
+                        return BuildSoundQuery(2);
                     }
                 case MonsterBoxCommands.Chains:
                     {
-                        return BuildSoundQuery(3, 13);
+                        return BuildSoundQuery(3);
                     }
                 case MonsterBoxCommands.Heartbeat:
                     {
-                        return BuildSoundQuery(4, 12);
+                        return BuildSoundQuery(4);
                     }
                 case MonsterBoxCommands.DragonGrowl:
                     {
-                        return BuildSoundQuery(5, 5);
+                        return BuildSoundQuery(5);
                     }
                 case MonsterBoxCommands.DoorCreek:
                     {
-                        return BuildSoundQuery(6, 2);
+                        return BuildSoundQuery(6);
                     }
                 case MonsterBoxCommands.Creature1:
                     {
-                        return BuildSoundQuery(7, 5);
+                        return BuildSoundQuery(7);
                     }
                 case MonsterBoxCommands.Creature2:
                     {
-                        return BuildSoundQuery(8, 3);
+                        return BuildSoundQuery(8);
                     }
                 case MonsterBoxCommands.Creature3:
                     {
-                        return BuildSoundQuery(9, 7);
+                        return BuildSoundQuery(9);
                     }
                 case MonsterBoxCommands.Creature4:
                     {
-                        return BuildSoundQuery(10, 7);
+                        return BuildSoundQuery(10);
                     }
                 case MonsterBoxCommands.Creature5:
                     {
-                        return BuildSoundQuery(11, 6);
+                        return BuildSoundQuery(11);
                     }
                 case MonsterBoxCommands.MetalHit:
                     {
-                        return BuildSoundQuery(12, 8);
+                        return BuildSoundQuery(12);
                     }
                 case MonsterBoxCommands.Raven:
                     {
-                        return BuildSoundQuery(13, 2);
+                        return BuildSoundQuery(13);
                     }
                 default:
                     {
